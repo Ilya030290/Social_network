@@ -19,7 +19,7 @@ type AppPropsType = {
     messagesData: Array<MessagePropsType>
 }
 
-const App = (props:AppPropsType) => {
+const App = (props: AppPropsType) => {
     return (
         <BrowserRouter>
         <div className={s.app_wrapper}>
