@@ -14,27 +14,34 @@ import {MessagePropsType} from "./components/Dialogs/Message/Message";
 
 
 type AppPropsType = {
-    postsData: Array<PostPropsType>,
-    dialogsData: Array<DialogItemPropsType>,
-    messagesData: Array<MessagePropsType>
+    state: {
+        profilePage: {
+            posts: Array<PostPropsType>
+
+        },
+        dialogsPage: {
+            messages: Array<MessagePropsType>,
+            dialogs: Array<DialogItemPropsType>
+        }
+    }
 }
 
 const App = (props: AppPropsType) => {
     return (
         <BrowserRouter>
-        <div className={s.app_wrapper}>
-            <Header/>
-            <Navbar/>
-            <div className={s.app_wrapper_content}>
-                <Routes>
-                    <Route path={'/dialogs/*'} element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
-                    <Route path={'/profile'} element={<Profile postsData={props.postsData}/>}/>
-                    <Route path={'/news'} element={<News/>}/>
-                    <Route path={'/music'} element={<Music/>}/>
-                    <Route path={'/settings'} element={<Settings/>}/>
-                </Routes>
+            <div className={s.app_wrapper}>
+                <Header/>
+                <Navbar/>
+                <div className={s.app_wrapper_content}>
+                    <Routes>
+                        <Route path={'/dialogs/*'} element={<Dialogs state={props.state.dialogsPage}/>}/>
+                        <Route path={'/profile'} element={<Profile state={props.state.profilePage}/>}/>
+                        <Route path={'/news'} element={<News/>}/>
+                        <Route path={'/music'} element={<Music/>}/>
+                        <Route path={'/settings'} element={<Settings/>}/>
+                    </Routes>
+                </div>
             </div>
-        </div>
         </BrowserRouter>
     );
 };

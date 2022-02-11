@@ -3,11 +3,11 @@ import s from './MyPosts.module.css';
 import Post, {PostPropsType} from "./Post/Post";
 
 type MyPostsPropsType = {
-    postsData: Array<PostPropsType>
+    posts: Array<PostPropsType>
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
-    const postElements = props.postsData.map( p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>);
+    const postElements = props.posts.map( p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>);
 
     return (
         <div className={s.postsBlock}>

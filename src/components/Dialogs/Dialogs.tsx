@@ -4,14 +4,16 @@ import DialogItem, {DialogItemPropsType} from "./DialogItem/DialogItem";
 import Message, {MessagePropsType} from "./Message/Message";
 
 type DialogsPropsType = {
-    dialogsData: Array<DialogItemPropsType>,
-    messagesData: Array<MessagePropsType>
+    state: {
+        dialogs: Array<DialogItemPropsType>,
+        messages: Array<MessagePropsType>
+    }
 }
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    const dialogsElements = props.dialogsData.map( d => <DialogItem id={d.id} name={d.name} />);
-    const messagesElements = props.messagesData.map( m => <Message id={m.id} message={m.message} />);
+    const dialogsElements = props.state.dialogs.map( d => <DialogItem id={d.id} name={d.name} />);
+    const messagesElements = props.state.messages.map( m => <Message id={m.id} message={m.message} />);
 
     return (
         <div className={s.dialogs}>

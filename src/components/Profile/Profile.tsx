@@ -5,14 +5,16 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {PostPropsType} from "./MyPosts/Post/Post";
 
 type ProfilePropsType = {
-    postsData: Array<PostPropsType>
+    state: {
+        posts: Array<PostPropsType>
+    }
 }
 
 const Profile = (props: ProfilePropsType) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts postsData={props.postsData} />
+            <MyPosts posts={props.state.posts} />
         </div>
     );
 };
