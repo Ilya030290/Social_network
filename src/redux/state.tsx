@@ -1,11 +1,13 @@
-import React from "react";
+import {rerenderEntireTree} from "../render";
 
-export const state = {
+
+export let state = {
     profilePage: {
         posts: [
             {id: 1, message: 'My first post', likeCount: 13},
             {id: 2, message: 'I want to be a frontend developer', likeCount: 15}
-        ]
+        ],
+        newPostText: 'Hello guys'
     },
     dialogsPage: {
         messages: [
@@ -26,4 +28,20 @@ export const state = {
         ]
     }
 };
+
+export const addPost = () => {
+    let newPost = {
+        id: 5,
+        message: state.profilePage.newPostText,
+        likeCount: 0
+    };
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree(state);
+}
 

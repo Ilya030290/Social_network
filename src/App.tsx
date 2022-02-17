@@ -16,14 +16,16 @@ import {MessagePropsType} from "./components/Dialogs/Message/Message";
 type AppPropsType = {
     state: {
         profilePage: {
-            posts: Array<PostPropsType>
-
+            posts: Array<PostPropsType>,
+            newPostText: string
         },
         dialogsPage: {
             messages: Array<MessagePropsType>,
             dialogs: Array<DialogItemPropsType>
         }
-    }
+    },
+    addPost: (postMessage: string) => void,
+    updateNewPostText: (newText: string) => void
 }
 
 const App = (props: AppPropsType) => {
@@ -34,11 +36,18 @@ const App = (props: AppPropsType) => {
                 <Navbar/>
                 <div className={s.app_wrapper_content}>
                     <Routes>
-                        <Route path={'/dialogs/*'} element={<Dialogs state={props.state.dialogsPage}/>}/>
-                        <Route path={'/profile'} element={<Profile state={props.state.profilePage}/>}/>
-                        <Route path={'/news'} element={<News/>}/>
-                        <Route path={'/music'} element={<Music/>}/>
-                        <Route path={'/settings'} element={<Settings/>}/>
+                        <Route path={'/dialogs/*'}
+                               element={<Dialogs state={props.state.dialogsPage}/>}/>
+                        <Route path={'/profile'}
+                               element={<Profile state={props.state.profilePage}
+                                                 addPost={props.addPost}
+                                                 updateNewPostText={props.updateNewPostText}/>}/>
+                        <Route path={'/news'}
+                               element={<News/>}/>
+                        <Route path={'/music'}
+                               element={<Music/>}/>
+                        <Route path={'/settings'}
+                               element={<Settings/>}/>
                     </Routes>
                 </div>
             </div>
