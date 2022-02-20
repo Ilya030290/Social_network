@@ -24,7 +24,7 @@ type AppPropsType = {
             dialogs: Array<DialogItemPropsType>
         }
     },
-    addPost: (postMessage: string) => void,
+    addPost: () => void,
     updateNewPostText: (newText: string) => void
 }
 

@@ -1,5 +1,9 @@
-import {rerenderEntireTree} from "../render";
+import {statePropsType} from "../index";
 
+
+let rerenderEntireTree = (props: statePropsType) => {
+
+}
 
 export let state = {
     profilePage: {
@@ -7,7 +11,7 @@ export let state = {
             {id: 1, message: 'My first post', likeCount: 13},
             {id: 2, message: 'I want to be a frontend developer', likeCount: 15}
         ],
-        newPostText: 'Hello guys'
+        newPostText: ''
     },
     dialogsPage: {
         messages: [
@@ -43,5 +47,9 @@ export const addPost = () => {
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
     rerenderEntireTree(state);
+}
+
+export const subscribe = (observer: any) => {
+    rerenderEntireTree = observer;
 }
 

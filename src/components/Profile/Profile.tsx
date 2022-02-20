@@ -8,7 +8,7 @@ type ProfilePropsType = {
         posts: Array<PostPropsType>,
         newPostText: string
     },
-    addPost: (postMessage: string) => void,
+    addPost: () => void,
     updateNewPostText: (newText: string) => void
 }
 

@@ -5,28 +5,23 @@ import Post, {PostPropsType} from "./Post/Post";
 type MyPostsPropsType = {
     posts: Array<PostPropsType>,
     newPostText: string,
-    addPost: (postMessage: string) => void,
+    addPost: () => void,
     updateNewPostText: (newText: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
     const postElements = props.posts.map(p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>);
 
-    const newPostElement = React.useRef<HTMLTextAreaElement | null>(null);
+    const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        let text = newPostElement.current?.value;
-        if (text) {
-            props.addPost(text)
-        }
-        /*if (newPostElement.current) newPostElement.current.value = '';*/
+            props.addPost()
     }
 
     const onPostChange = () => {
-        let text = newPostElement.current?.value;
-        if (text) {
+        let text = newPostElement.current!.value;
             props.updateNewPostText(text)
-        }
+
     }
         return (
             <div className={s.postsBlock}>
