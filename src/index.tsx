@@ -1,5 +1,5 @@
 import './index.css';
-import {addPost, state, subscribe, updateNewPostText} from "./redux/state";
+import {store} from "./redux/state";
 import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
 import {DialogItemPropsType} from "./components/Dialogs/DialogItem/DialogItem";
@@ -21,14 +21,16 @@ export type statePropsType = {
 
 let rerenderEntireTree = (state: statePropsType) => {
     ReactDOM.render(
-        <App state={state} addPost={addPost} updateNewPostText={updateNewPostText}/>,
+        <App state={state}
+             addPost={store.addPost.bind(store)}
+             updateNewPostText={store.updateNewPostText.bind(store)}
+        />,
         document.getElementById('root')
     );
 }
+rerenderEntireTree(store.getState());
 
-rerenderEntireTree(state);
-
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 
 
 
