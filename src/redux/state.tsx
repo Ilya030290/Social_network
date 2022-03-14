@@ -1,5 +1,12 @@
 import {statePropsType} from "../index";
 
+export type ActionType = {
+    type: string,
+    newText?: string
+}
+
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
 export const store = {
     _state: {
@@ -29,26 +36,34 @@ export const store = {
             ]
         }
     },
-    getState() {
-        return this._state
-    },
     _callSubscriber(props: statePropsType) {
         console.log('State changed');
     },
-    addPost() {
-        let newPost = {id: 5, message: this._state.profilePage.newPostText, likeCount: 0};
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    updateNewPostText (newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
+    getState() {
+        return this._state
     },
     subscribe(observer: any) {
         this._callSubscriber = observer;
+    },
+    dispatch(action: ActionType) {
+        if (action.type === ADD_POST) {
+            let newPost = {id: 5, message: this._state.profilePage.newPostText, likeCount: 0};
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+            // @ts-ignore
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        }
     }
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (text:string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
 
 
 

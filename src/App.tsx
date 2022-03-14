@@ -11,6 +11,7 @@ import Music from "./components/Music/Music";
 import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
 import {DialogItemPropsType} from "./components/Dialogs/DialogItem/DialogItem";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
+import {ActionType} from "./redux/state";
 
 
 type AppPropsType = {
@@ -24,8 +25,7 @@ type AppPropsType = {
             dialogs: Array<DialogItemPropsType>
         }
     },
-    addPost: () => void,
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 const App = (props: AppPropsType) => {
@@ -39,9 +39,7 @@ const App = (props: AppPropsType) => {
                         <Route path={'/dialogs/*'}
                                element={<Dialogs state={props.state.dialogsPage}/>}/>
                         <Route path={'/profile'}
-                               element={<Profile state={props.state.profilePage}
-                                                 addPost={props.addPost}
-                                                 updateNewPostText={props.updateNewPostText}/>}/>
+                               element={<Profile state={props.state.profilePage} dispatch={props.dispatch}/>}/>
                         <Route path={'/news'}
                                element={<News/>}/>
                         <Route path={'/music'}
