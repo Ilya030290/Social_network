@@ -1,14 +1,39 @@
-import {statePropsType} from "../index";
+import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
+import {MessagePropsType} from "../components/Dialogs/Message/Message";
+import {DialogItemPropsType} from "../components/Dialogs/DialogItem/DialogItem";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+import {sidebarReducer} from "./sidebarReducer";
 
-export type ActionType = {
-    type: string,
-    newText?: string
+export type StateType = {
+    profilePage: {
+        posts: Array<PostPropsType>
+        newPostText: string
+    },
+    dialogsPage: {
+        messages: Array<MessagePropsType>
+        newMessageBody: string
+        dialogs: Array<DialogItemPropsType>
+    },
+    sidebar: {}
+};
+
+export type StoreType = {
+    _state: StateType
+    _callSubscriber: (state:StateType) => void
+    getState: () => StateType
+    subscribe: (callback: () => void) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-export const store = {
+export type ActionsTypes =
+    ReturnType<typeof addPostCreator>
+    | ReturnType<typeof updateNewPostTextCreator>
+    | ReturnType<typeof updateNewMessageBodyCreator>
+    | ReturnType<typeof sendMessageCreator>
+
+export const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -26,6 +51,7 @@ export const store = {
                 {id: 5, message: 'Hey, where are you from?'},
                 {id: 6, message: 'Okay'}
             ],
+            newMessageBody: '',
             dialogs: [
                 {id: 1, name: 'Valera'},
                 {id: 2, name: 'Sergey'},
@@ -34,36 +60,36 @@ export const store = {
                 {id: 5, name: 'Aleksandr'},
                 {id: 6, name: 'Artem'}
             ]
-        }
+        },
+        sidebar: {}
     },
-    _callSubscriber(props: statePropsType) {
+    _callSubscriber(state: StateType) {
         console.log('State changed');
     },
     getState() {
         return this._state
     },
-    subscribe(observer: any) {
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
-    dispatch(action: ActionType) {
-        if (action.type === ADD_POST) {
-            let newPost = {id: 5, message: this._state.profilePage.newPostText, likeCount: 0};
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            // @ts-ignore
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        }
+    dispatch(action) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state);
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
+export const addPostCreator = () => ({type: 'ADD-POST'}) as const
 
-export const updateNewPostTextActionCreator = (text:string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const updateNewPostTextCreator = (text:string) =>
+    ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const
 
+export const updateNewMessageBodyCreator = (body: string) =>
+    ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body}) as const
+
+export const sendMessageCreator = () => ({type: 'SEND-MESSAGE'}) as const
 
 
 
