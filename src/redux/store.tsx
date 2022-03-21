@@ -1,7 +1,7 @@
 import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
 import {MessagePropsType} from "../components/Dialogs/Message/Message";
 import {DialogItemPropsType} from "../components/Dialogs/DialogItem/DialogItem";
-import {profileReducer} from "./profileReducer";
+import {ActionsTypes, profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 
@@ -25,13 +25,6 @@ export type StoreType = {
     subscribe: (callback: () => void) => void
     dispatch: (action: ActionsTypes) => void
 }
-
-
-export type ActionsTypes =
-    ReturnType<typeof addPostCreator>
-    | ReturnType<typeof updateNewPostTextCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
-    | ReturnType<typeof sendMessageCreator>
 
 export const store: StoreType = {
     _state: {
@@ -81,15 +74,7 @@ export const store: StoreType = {
     }
 }
 
-export const addPostCreator = () => ({type: 'ADD-POST'}) as const
 
-export const updateNewPostTextCreator = (text:string) =>
-    ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const
-
-export const updateNewMessageBodyCreator = (body: string) =>
-    ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body}) as const
-
-export const sendMessageCreator = () => ({type: 'SEND-MESSAGE'}) as const
 
 
 

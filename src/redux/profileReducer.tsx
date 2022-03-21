@@ -1,12 +1,35 @@
-import {ActionsTypes} from "./state";
 import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
+import {sendMessageActionType, updateNewMessageBodyActionType} from "./dialogsReducer";
+
+export type addPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type updateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type ActionsTypes = addPostActionType
+    | updateNewPostTextActionType
+    | updateNewMessageBodyActionType
+    | sendMessageActionType
+
 
 type ProfileReducerState = {
         posts: Array<PostPropsType>
         newPostText: string
 }
 
-export const profileReducer = (state: ProfileReducerState, action: ActionsTypes) => {
+let initialState = {
+    posts: [
+        {id: 1, message: 'My first post', likeCount: 13},
+        {id: 2, message: 'I want to be a frontend developer', likeCount: 15}
+    ],
+    newPostText: ''
+}
+
+export const profileReducer = (state: ProfileReducerState = initialState, action: ActionsTypes) => {
 
     switch(action.type) {
         case 'ADD-POST':
@@ -22,3 +45,7 @@ export const profileReducer = (state: ProfileReducerState, action: ActionsTypes)
     }
 }
 
+export const addPostCreator = () :addPostActionType => ({type: 'ADD-POST'})
+
+export const updateNewPostTextCreator = (text:string) :updateNewPostTextActionType =>
+    ({type: 'UPDATE-NEW-POST-TEXT', newText: text})

@@ -8,15 +8,16 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Settings from "./components/Settings/Settings";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
-import {ActionsTypes, StoreType} from "./redux/state";
+import {ReduxStoreType, store} from "./redux/redux-store";
 
 
 type AppPropsType = {
-    store: StoreType,
-    dispatch: (action: ActionsTypes) => void
+    store: ReduxStoreType
 }
 
 const App = (props: AppPropsType) => {
+    const state = props.store.getState()
+
     return (
         <BrowserRouter>
             <div className={s.app_wrapper}>
@@ -25,12 +26,12 @@ const App = (props: AppPropsType) => {
                 <div className={s.app_wrapper_content}>
                     <Routes>
                         <Route path={'/dialogs/*'}
-                               element={<Dialogs dialogsPage={props.store._state.dialogsPage}
-                                                 dispatch={props.dispatch}/>}
+                               element={<Dialogs dialogsPage={state.dialogsPage}
+                                                 dispatch={store.dispatch.bind(store)}/>}
                         />
                         <Route path={'/profile'}
-                               element={<Profile profilePage={props.store._state.profilePage}
-                                                 dispatch={props.dispatch}/>}
+                               element={<Profile profilePage={state.profilePage}
+                                                 dispatch={store.dispatch.bind(store)}/>}
                         />
                         <Route path={'/news'}
                                element={<News/>}

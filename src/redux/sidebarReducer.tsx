@@ -1,9 +1,12 @@
 import React from 'react';
-import {ActionsTypes} from "./state";
+import {ActionsTypes} from "./profileReducer";
+
 
 type SidebarReducerState = {}
 
-export const sidebarReducer = (state: SidebarReducerState, action: ActionsTypes) => {
+let initialState = {}
+
+export const sidebarReducer = (state: SidebarReducerState = initialState, action: ActionsTypes) => {
 
     return state
 };
