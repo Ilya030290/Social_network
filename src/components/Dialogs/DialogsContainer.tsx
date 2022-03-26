@@ -1,35 +1,39 @@
 import React from 'react';
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsReducer"
+import {DialogsReducerStateType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsReducer"
 import Dialogs from "./Dialogs";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
-const DialogsContainer = () => {
+
+type MapStateToPropsType = {
+    dialogsPage: DialogsReducerStateType
+}
+
+type MapDispatchToPropsType = {
+    sendMessage: () => void
+    updateNewMessageBody: (body: string) => void,
+}
+
+export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
-    return (
-        <StoreContext.Consumer>
-            {
-            (store) => {
+const mapStateToProps = (state: AppStateType) : MapStateToPropsType => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
 
-                let state = store.getState().dialogsPage;
-
-                const onNewMessageChange = (body: string) => {
-                    store.dispatch(updateNewMessageBodyCreator(body))
-                }
-
-                const onSendMessageClick = () => {
-                    store.dispatch(sendMessageCreator())
-                }
-
-                return <Dialogs
-                    updateNewMessageBody={onNewMessageChange}
-                    sendMessage={onSendMessageClick}
-                    dialogsPage={state}
-                />
-            }
+const mapDispatchToProps = (dispatch: Dispatch) : MapDispatchToPropsType => {
+    return {
+        sendMessage: () => {
+            dispatch(sendMessageCreator())
+        },
+        updateNewMessageBody: (body: string) => {
+            dispatch(updateNewMessageBodyCreator(body))
         }
-        </StoreContext.Consumer>
-    );
-};
+    }
+}
 
-export default DialogsContainer;
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+

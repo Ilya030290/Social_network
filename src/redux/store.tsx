@@ -1,19 +1,19 @@
-import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
-import {MessagePropsType} from "../components/Dialogs/Message/Message";
-import {DialogItemPropsType} from "../components/Dialogs/DialogItem/DialogItem";
+import {PostType} from "../components/Profile/MyPosts/Post/Post";
+import {MessageType} from "../components/Dialogs/Message/Message";
+import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
 import {ActionsTypes, profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 
 export type StateType = {
     profilePage: {
-        posts: Array<PostPropsType>
+        posts: Array<PostType>
         newPostText: string
     },
     dialogsPage: {
-        messages: Array<MessagePropsType>
+        messages: Array<MessageType>
         newMessageBody: string
-        dialogs: Array<DialogItemPropsType>
+        dialogs: Array<DialogItemType>
     },
     sidebar: {}
 };

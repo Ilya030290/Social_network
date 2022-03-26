@@ -1,5 +1,5 @@
-import {DialogItemPropsType} from "../components/Dialogs/DialogItem/DialogItem";
-import {MessagePropsType} from "../components/Dialogs/Message/Message";
+import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
+import {MessageType} from "../components/Dialogs/Message/Message";
 import {ActionsTypes} from "./profileReducer";
 
 
@@ -13,9 +13,9 @@ export type sendMessageActionType = {
 }
 
 
-type DialogsReducerState = {
-        dialogs: Array<DialogItemPropsType>
-        messages: Array<MessagePropsType>
+export type DialogsReducerStateType = {
+        dialogs: Array<DialogItemType>
+        messages: Array<MessageType>
         newMessageBody: string
 }
 
@@ -27,7 +27,7 @@ let initialState = {
         {id: 4, message: 'Come on'},
         {id: 5, message: 'Hey, where are you from?'},
         {id: 6, message: 'Okay'}
-    ],
+    ] as Array<MessageType>,
     newMessageBody: '',
     dialogs: [
         {id: 1, name: 'Valera'},
@@ -36,10 +36,10 @@ let initialState = {
         {id: 4, name: 'Veronika'},
         {id: 5, name: 'Aleksandr'},
         {id: 6, name: 'Artem'}
-    ]
+    ] as Array<DialogItemType>
 }
 
-export const dialogsReducer = (state: DialogsReducerState = initialState, action: ActionsTypes) => {
+export const dialogsReducer = (state: DialogsReducerStateType = initialState, action: ActionsTypes) : DialogsReducerStateType => {
 
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-BODY':
@@ -55,7 +55,7 @@ export const dialogsReducer = (state: DialogsReducerState = initialState, action
     }
 }
 
-export const updateNewMessageBodyCreator = (body: string) :updateNewMessageBodyActionType =>
+export const updateNewMessageBodyCreator = (body: string) : updateNewMessageBodyActionType =>
     ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body})
 
-export const sendMessageCreator = () :sendMessageActionType => ({type: 'SEND-MESSAGE'})
+export const sendMessageCreator = () : sendMessageActionType => ({type: 'SEND-MESSAGE'})

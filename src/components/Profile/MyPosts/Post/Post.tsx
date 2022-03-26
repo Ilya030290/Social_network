@@ -1,13 +1,13 @@
 import React from 'react';
 import s from "./Post.module.css";
 
-export type PostPropsType = {
+export type PostType = {
     message: string,
     likeCount: number,
     id: number
 }
 
-const Post = (props:PostPropsType) => {
+const Post = (props:PostType) => {
     return (
         <div className={s.item}>
             <img src={'https://bipbap.ru/wp-content/uploads/2017/07/images-2-65.jpg'} alt={'ava'}/>

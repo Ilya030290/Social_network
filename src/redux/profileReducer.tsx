@@ -1,4 +1,4 @@
-import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
+import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {sendMessageActionType, updateNewMessageBodyActionType} from "./dialogsReducer";
 
 export type addPostActionType = {
@@ -16,20 +16,20 @@ export type ActionsTypes = addPostActionType
     | sendMessageActionType
 
 
-type ProfileReducerState = {
-        posts: Array<PostPropsType>
+export type ProfileReducerStateType = {
+        posts: Array<PostType>
         newPostText: string
 }
 
-let initialState = {
+let initialState : ProfileReducerStateType = {
     posts: [
         {id: 1, message: 'My first post', likeCount: 13},
         {id: 2, message: 'I want to be a frontend developer', likeCount: 15}
-    ],
+    ] as Array<PostType>,
     newPostText: ''
 }
 
-export const profileReducer = (state: ProfileReducerState = initialState, action: ActionsTypes) => {
+export const profileReducer = (state: ProfileReducerStateType = initialState, action: ActionsTypes) : ProfileReducerStateType => {
 
     switch(action.type) {
         case 'ADD-POST':
