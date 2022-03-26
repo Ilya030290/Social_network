@@ -7,8 +7,8 @@ import {DialogsPropsType} from "./DialogsContainer";
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    const dialogsElements = props.dialogsPage.dialogs.map((d, index) => <DialogItem key={index} id={d.id} name={d.name} />);
-    const messagesElements = props.dialogsPage.messages.map((m, index) => <Message key={index} id={m.id} message={m.message} />);
+    const dialogsElements = props.dialogsPage.dialogs.map((d) => <DialogItem key={d.id} id={d.id} name={d.name} />);
+    const messagesElements = props.dialogsPage.messages.map((m) => <Message key={m.id} id={m.id} message={m.message} />);
 
     const newMessageBody = props.dialogsPage.newMessageBody;
 
