@@ -25,7 +25,7 @@ const App = () => {
                            element={<Profile/>}
                     />
                     <Route path={'/users'}
-                           element={<UsersContainer/>}
+                           element={<UsersContainer />}
                     />
                     <Route path={'/news'}
                            element={<News/>}
