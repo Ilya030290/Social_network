@@ -4,3 +4,13 @@
     border: 1px solid black;
     border-radius: 50%;
 }
+
+.selectedPage {
+    font-weight: bold;
+    color: #c5172b;
+    cursor: pointer;
+}
+
+.nonSelected {
+    cursor: pointer;
+}
