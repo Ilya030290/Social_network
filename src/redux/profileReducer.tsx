@@ -5,6 +5,7 @@ import {
     setCurrentPageActionType,
     setTotalUsersCountActionType,
     setUsersActionType,
+    toggleIsFetchingActionType,
     unFollowActionType
 } from "./usersReducer";
 
@@ -26,6 +27,7 @@ export type ActionsTypes = addPostActionType
     | setUsersActionType
     | setCurrentPageActionType
     | setTotalUsersCountActionType
+    | toggleIsFetchingActionType
 
 
 export type ProfileReducerStateType = {
