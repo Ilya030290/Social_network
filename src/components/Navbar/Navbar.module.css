@@ -4,6 +4,34 @@
     padding-top: 20px;
     padding-left: 50px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.profile {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.messages {
+    margin-bottom: 10px;
+}
+
+.users {
+    margin-bottom: 10px;
+}
+
+.news {
+    margin-bottom: 10px;
+}
+
+.music {
+    margin-bottom: 10px;
+}
+
+.settings {
+    margin-bottom: 10px;
 }
 
 .link {

@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
+import {Pagination} from "@mui/material";
 
 
 type UsersPropsType = {
@@ -26,16 +27,11 @@ export const Users = (props: UsersPropsType) => {
     return (
         <div>
             <div>
-                {
-                    pages.map(p =>
-                        <span className={props.currentPage === p ? s.selectedPage : s.nonSelected}
-                              onClick={() => {
-                                  props.onPageChanged(p)
-                              }}>
-                                {p}
-                            </span>
-                    )
-                }
+                <Pagination  count={pages.length}
+                             page={props.currentPage}
+                             onChange={( e, num) => props.onPageChanged(num)}
+                             color="secondary"
+                />
             </div>
             {
                 props.users.map(u => <div key={u.id}>

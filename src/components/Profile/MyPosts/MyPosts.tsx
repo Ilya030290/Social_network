@@ -2,6 +2,8 @@ import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {Button, TextareaAutosize, TextField} from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -23,14 +25,25 @@ const MyPosts = (props: MyPostsPropsType) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}
-                              onChange={onPostChange}
-                              value={props.profilePage.newPostText}/>
+                    <TextareaAutosize
+                        aria-label={"minimum height"}
+                        minRows={5}
+                        placeholder={"Add new post"}
+                        style={{ width: 250 }}
+                        ref={newPostElement}
+                        onChange={onPostChange}
+                        value={props.profilePage.newPostText}
+                    />
                 </div>
                 <div>
-                    <button onClick={onAddPost}>
+                    <Button variant={"contained"}
+                            endIcon={<SendIcon />}
+                            onClick={onAddPost}
+                            size={"small"}
+                            color={"secondary"}
+                    >
                         Add post
-                    </button>
+                    </Button>
                 </div>
             </div>
             <div className={s.posts}>
