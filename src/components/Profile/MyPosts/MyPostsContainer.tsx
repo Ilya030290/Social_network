@@ -1,5 +1,5 @@
 import MyPosts from "./MyPosts";
-import {addPostCreator, ProfileReducerStateType, updateNewPostTextCreator} from "../../../redux/profileReducer";
+import {addPost, ProfileReducerStateType, updateNewPostText} from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
@@ -27,10 +27,10 @@ const mapStateToProps = (state: AppStateType) : MapStateToPropsType => {
 const mapDispatchToProps = (dispatch: Dispatch) : MapDispatchToPropsType => {
     return {
         addPost: () => {
-            dispatch(addPostCreator())
+            dispatch(addPost())
         },
         updateNewPostText: (text: string) => {
-            dispatch(updateNewPostTextCreator(text))
+            dispatch(updateNewPostText(text))
         }
     }
 }

@@ -5,10 +5,22 @@ import {ActionsTypes, profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 
+import React from "react";
+//заглушка
+export const store = () => {
+    return (
+        <div>
+
+        </div>
+    )
+}
+
+/*
 export type StateType = {
     profilePage: {
         posts: Array<PostType>
         newPostText: string
+
     },
     dialogsPage: {
         messages: Array<MessageType>
@@ -72,7 +84,7 @@ export const store: StoreType = {
 
         this._callSubscriber(this._state);
     }
-}
+}*/
 
 
 

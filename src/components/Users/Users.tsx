@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/usersReducer";
+import {NavLink} from "react-router-dom";
 
 
 type UsersPropsType = {
@@ -28,7 +29,9 @@ export const Users = (props: UsersPropsType) => {
                 {
                     pages.map(p =>
                         <span className={props.currentPage === p ? s.selectedPage : s.nonSelected}
-                              onClick={() => {props.onPageChanged(p)}}>
+                              onClick={() => {
+                                  props.onPageChanged(p)
+                              }}>
                                 {p}
                             </span>
                     )
@@ -38,20 +41,26 @@ export const Users = (props: UsersPropsType) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
+                            <NavLink to={'/profile/' + u.id}>
                             <img className={s.userPhoto}
                                  src={u.photos.small !== null ? u.photos.small : userPhoto}
                                  alt={'ava'}
                             />
+                            </NavLink>
                         </div>
                         <div>
                             {
                                 u.followed
-                                    ? <button onClick={() => {props.unFollow(u.id)}}>Unfollow</button>
-                                    : <button onClick={() => {props.follow(u.id)}}>Follow</button>
+                                    ? <button onClick={() => {
+                                        props.unFollow(u.id)
+                                    }}>Unfollow</button>
+                                    : <button onClick={() => {
+                                        props.follow(u.id)
+                                    }}>Follow</button>
                             }
                         </div>
                     </span>
-                    <span>
+                        <span>
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>
@@ -61,7 +70,7 @@ export const Users = (props: UsersPropsType) => {
                                 <div>{"u.location.city"}</div>
                             </span>
                     </span>
-                </div>
+                    </div>
                 )
             }
         </div>
