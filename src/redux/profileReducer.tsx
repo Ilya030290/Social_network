@@ -40,7 +40,7 @@ export type ActionsTypes = addPostActionType
 export type ProfileReducerStateType = {
     posts: Array<PostType>
     newPostText: string
-    profile: UserProfileType
+    profile: UserProfileType | null
 }
 
 let initialState: ProfileReducerStateType = {
@@ -50,25 +50,25 @@ let initialState: ProfileReducerStateType = {
     ] as Array<PostType>,
     newPostText: '',
     profile: {
-        aboutMe: 'me',
+        aboutMe: 'I want tobe a frontend developer',
         contacts: {
-            facebook: 'adasd',
-            github: 'asds',
-            instagram: 'asd',
-            mainLink: 'dsad',
-            vk: 'asdsadxcvf',
-            twitter: 'sadsacxz',
-            website: 'asdqwqw',
-            youtube: 'oioqidwqh'
+            facebook: 'none',
+            github: 'https://github.com/Ilya030290',
+            instagram: 'https://instagram.com/',
+            mainLink: 'none',
+            vk: 'none',
+            twitter: 'none',
+            website: 'none',
+            youtube: 'none'
         },
         fullName: 'Ilya Anoshko',
         lookingForAJob: true,
-        lookingForAJobDescription: 'I look for a new job, heeelp me please',
+        lookingForAJobDescription: 'I look for a new job, help me please',
         photos: {
              large: null,
             small: null
         },
-         userId: 30
+         userId: 289
     }
 }
 

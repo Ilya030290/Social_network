@@ -5,7 +5,7 @@ import {UserProfileType} from "../ProfileContainer";
 import UserPhoto from '../../../assets/images/user.png';
 
 type ProfileInfoPropsType = {
-    profile: UserProfileType
+    profile: UserProfileType | null
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -24,7 +24,13 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large !== null ? props.profile.photos.large : UserPhoto} alt={'ava'}/>
                 <div>{props.profile.fullName}</div>
-                <div>Ищу новую работу: {props.profile.lookingForAJobDescription}</div>
+                <div>{props.profile.aboutMe}</div>
+                <div>{props.profile.lookingForAJobDescription}</div>
+                <div>My contacts</div>
+                <div>github: {props.profile.contacts.github}</div>
+                <div>instagram: {props.profile.contacts.instagram}</div>
+                <div>youtube: {props.profile.contacts.youtube}</div>
+                <div>vk: {props.profile.contacts.vk}</div>
             </div>
         </div>
     );

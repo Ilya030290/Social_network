@@ -4,7 +4,7 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {UserProfileType} from "./ProfileContainer";
 
 type ProfilePropsType = {
-    profile: UserProfileType
+    profile: UserProfileType | null
 }
 
 export const Profile = (props: ProfilePropsType) => {
