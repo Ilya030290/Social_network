@@ -1,6 +1,6 @@
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
-import {ActionsTypes} from "./profileReducer";
+import {ActionsTypes} from "./profile-reducer";
 
 
 export type updateNewMessageBodyActionType = {

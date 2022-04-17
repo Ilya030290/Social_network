@@ -1,9 +1,9 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {MessageType} from "../components/Dialogs/Message/Message";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
-import {ActionsTypes, profileReducer} from "./profileReducer";
-import {dialogsReducer} from "./dialogsReducer";
-import {sidebarReducer} from "./sidebarReducer";
+import {ActionsTypes, profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 import React from "react";
 //заглушка

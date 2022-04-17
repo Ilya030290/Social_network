@@ -8,7 +8,7 @@ import {
     setUsers,
     unFollow,
     UserType
-} from "../../redux/usersReducer";
+} from "../../redux/users-reducer";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";

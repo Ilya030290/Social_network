@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionsTypes} from "./profileReducer";
+import {ActionsTypes} from "./profile-reducer";
 
 
 type SidebarReducerState = {}

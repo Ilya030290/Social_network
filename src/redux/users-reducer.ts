@@ -1,4 +1,4 @@
-import {ActionsTypes} from "./profileReducer";
+import {ActionsTypes} from "./profile-reducer";
 
 
 export type UserType = {
