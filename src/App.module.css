@@ -13,6 +13,7 @@
 
 .app_wrapper_content {
     grid-area: content;
-    background-color: aquamarine;
+    background-color: #94eee2;
     border-radius: 10px;
+    border: 1px solid;
 }

@@ -9,12 +9,14 @@ import Music from "./components/Music/Music";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {HeaderContainer} from "./components/Header/HeaderContainer";
+
 
 
 const App = () => {
     return (
         <div className={s.app_wrapper}>
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className={s.app_wrapper_content}>
                 <Routes>
@@ -28,7 +30,7 @@ const App = () => {
                            element={<ProfileContainer/>}
                     />
                     <Route path={'/users'}
-                           element={<UsersContainer />}
+                           element={<UsersContainer/>}
                     />
                     <Route path={'/news'}
                            element={<News/>}
