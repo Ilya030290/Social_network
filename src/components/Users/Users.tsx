@@ -4,7 +4,7 @@ import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {Button, Pagination} from "@mui/material";
-import axios from "axios";
+import {follow, unFollow} from "../../api/api";
 
 
 type UsersPropsType = {
@@ -49,8 +49,7 @@ export const Users = (props: UsersPropsType) => {
                             {
                                 u.followed
                                     ? <Button variant={"contained"} size={"small"} color={"secondary"} onClick={() => {
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                            {withCredentials: true, headers: {"API-KEY": "262e2c2b-b3e7-4ca9-aebd-afd6b759e25e"}})
+                                        unFollow(u.id)
                                             .then((response) => {
                                                 if (response.data.resultCode === 0) {
                                                     props.unFollow(u.id);
@@ -60,8 +59,7 @@ export const Users = (props: UsersPropsType) => {
                                         Unfollow
                                     </Button>
                                     : <Button variant={"contained"} size={"small"} color={"success"} onClick={() => {
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                            {withCredentials: true, headers: {"API-KEY": "262e2c2b-b3e7-4ca9-aebd-afd6b759e25e"}})
+                                        follow(u.id)
                                             .then((response) => {
                                                 if (response.data.resultCode === 0) {
                                                     props.follow(u.id);
@@ -79,8 +77,8 @@ export const Users = (props: UsersPropsType) => {
                                 <div>{u.status}</div>
                             </span>
                             <span>
-                                <div>{"u.location.country"}</div>
-                                <div>{"u.location.city"}</div>
+                                <div>{"Location: Country"}</div>
+                                <div>{"Location: City"}</div>
                             </span>
                     </span>
                     </div>

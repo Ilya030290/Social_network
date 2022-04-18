@@ -4,13 +4,13 @@ import {ActionsTypes} from "./profile-reducer";
 export type UserType = {
     id: number
     photos: {
-        small: string,
-        large: string
+        small: string | null,
+        large: string | null
     }
     followed: boolean
     name: string
-    status: string
-    location: { city: string, country: string }
+    status: string | null
+    uniqueUrlName: string | null
 }
 
 export type followActionType = {

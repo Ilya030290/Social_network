@@ -1,26 +1,26 @@
 import React, {JSXElementConstructor} from 'react';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {getProfile, ProfileDataResponseType} from "../../api/api";
 
 
 export type UserProfileType = {
-    aboutMe: string,
+    aboutMe: string | null,
     contacts: {
-        facebook: string,
+        facebook: string | null,
         website: string | null,
-        vk: string,
-        twitter: string,
-        instagram: string,
+        vk: string | null,
+        twitter: string | null,
+        instagram: string | null,
         youtube: string | null,
-        github: string,
+        github: string | null,
         mainLink: string | null
     }
     lookingForAJob: boolean,
-    lookingForAJobDescription: string,
+    lookingForAJobDescription: string | null,
     fullName: string,
     userId: number,
     photos: {
@@ -46,9 +46,9 @@ export class ProfileContainerComponent extends React.Component<ProfileContainerC
         //@ts-ignore
         let userId = this.props.router.params.userId;
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data);
+        getProfile(userId)
+            .then((data: ProfileDataResponseType) => {
+                this.props.setUserProfile(data);
             });
     }
 

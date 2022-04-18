@@ -1,12 +1,12 @@
 export type initialStateType = {
-    userId: string,
+    userId: number,
     email: string,
     login: string,
     isAuth: boolean
 }
 
 const initialState: initialStateType = {
-    userId: '',
+    userId: 0,
     email: '',
     login: '',
     isAuth: false
@@ -15,7 +15,7 @@ const initialState: initialStateType = {
 type setAuthUserDataAT = {
     type: 'SET-USER-DATA',
     data: {
-        userId: string,
+        userId: number,
         email: string,
         login: string
     }
@@ -32,7 +32,7 @@ export const authReducer = (state: initialStateType = initialState, action: Acti
     }
 }
 
-export const setAuthUserData = (userId: string, email: string, login: string): setAuthUserDataAT => ({
+export const setAuthUserData = (userId: number, email: string, login: string): setAuthUserDataAT => ({
     type: 'SET-USER-DATA',
     data: {userId, email, login}
 })
