@@ -3,7 +3,8 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {Pagination} from "@mui/material";
+import {Button, Pagination} from "@mui/material";
+import axios from "axios";
 
 
 type UsersPropsType = {
@@ -25,16 +26,16 @@ export const Users = (props: UsersPropsType) => {
     }
 
     return (
-        <div>
-            <div>
-                <Pagination  count={pages.length}
-                             page={props.currentPage}
-                             onChange={( e, num) => props.onPageChanged(num)}
-                             color="secondary"
+        <div className={s.usersBlock}>
+            <div className={s.pagination}>
+                <Pagination count={pages.length}
+                            page={props.currentPage}
+                            onChange={(e, num) => props.onPageChanged(num)}
+                            color="secondary"
                 />
             </div>
             {
-                props.users.map(u => <div key={u.id}>
+                props.users.map(u => <div key={u.id} className={s.user}>
                     <span>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
@@ -47,12 +48,28 @@ export const Users = (props: UsersPropsType) => {
                         <div>
                             {
                                 u.followed
-                                    ? <button onClick={() => {
-                                        props.unFollow(u.id)
-                                    }}>Unfollow</button>
-                                    : <button onClick={() => {
-                                        props.follow(u.id)
-                                    }}>Follow</button>
+                                    ? <Button variant={"contained"} size={"small"} color={"secondary"} onClick={() => {
+                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                            {withCredentials: true, headers: {"API-KEY": "262e2c2b-b3e7-4ca9-aebd-afd6b759e25e"}})
+                                            .then((response) => {
+                                                if (response.data.resultCode === 0) {
+                                                    props.unFollow(u.id);
+                                                }
+                                            });
+                                    }}>
+                                        Unfollow
+                                    </Button>
+                                    : <Button variant={"contained"} size={"small"} color={"success"} onClick={() => {
+                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
+                                            {withCredentials: true, headers: {"API-KEY": "262e2c2b-b3e7-4ca9-aebd-afd6b759e25e"}})
+                                            .then((response) => {
+                                                if (response.data.resultCode === 0) {
+                                                    props.follow(u.id);
+                                                }
+                                            });
+                                    }}>
+                                        Follow
+                                    </Button>
                             }
                         </div>
                     </span>
