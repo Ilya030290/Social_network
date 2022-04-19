@@ -1,40 +1,26 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
-import {sendMessageActionType, updateNewMessageBodyActionType} from "./dialogs-reducer";
-import {
-    followActionType,
-    setCurrentPageActionType,
-    setTotalUsersCountActionType,
-    setUsersActionType,
-    toggleIsFetchingActionType,
-    unFollowActionType
-} from "./users-reducer";
+import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 
-export type addPostActionType = {
+export type AddPostActionType = {
     type: 'ADD-POST'
 }
 
-export type updateNewPostTextActionType = {
+export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
 
-export type setUserProfileActionType = {
+export type SetUserProfileActionType = {
     type: 'SET_USER_PROFILE'
     profile: UserProfileType
 }
 
-export type ActionsTypes = addPostActionType
-    | updateNewPostTextActionType
-    | updateNewMessageBodyActionType
-    | sendMessageActionType
-    | followActionType
-    | unFollowActionType
-    | setUsersActionType
-    | setCurrentPageActionType
-    | setTotalUsersCountActionType
-    | toggleIsFetchingActionType
-    | setUserProfileActionType
+export type ActionsTypes = AddPostActionType
+    | UpdateNewPostTextActionType
+    | UpdateNewMessageBodyActionType
+    | SendMessageActionType
+    | SetUserProfileActionType
 
 
 export type ProfileReducerStateType = {
@@ -65,10 +51,10 @@ let initialState: ProfileReducerStateType = {
         lookingForAJob: true,
         lookingForAJobDescription: 'I look for a new job, help me please',
         photos: {
-             large: null,
+            large: null,
             small: null
         },
-         userId: 289
+        userId: 289
     }
 }
 
@@ -90,12 +76,12 @@ export const profileReducer = (state: ProfileReducerStateType = initialState, ac
     }
 }
 
-export const addPost = (): addPostActionType => ({type: 'ADD-POST'})
-export const updateNewPostText = (text: string): updateNewPostTextActionType => ({
+export const addPost = (): AddPostActionType => ({type: 'ADD-POST'})
+export const updateNewPostText = (text: string): UpdateNewPostTextActionType => ({
     type: 'UPDATE-NEW-POST-TEXT',
     newText: text
 })
-export const setUserProfile = (profile: UserProfileType): setUserProfileActionType => ({
+export const setUserProfile = (profile: UserProfileType): SetUserProfileActionType => ({
     type: 'SET_USER_PROFILE',
     profile: profile
 })

@@ -3,12 +3,12 @@ import {MessageType} from "../components/Dialogs/Message/Message";
 import {ActionsTypes} from "./profile-reducer";
 
 
-export type updateNewMessageBodyActionType = {
+export type UpdateNewMessageBodyActionType = {
     type: 'UPDATE-NEW-MESSAGE-BODY'
     body: string
 }
 
-export type sendMessageActionType = {
+export type SendMessageActionType = {
     type: 'SEND-MESSAGE'
 }
 
@@ -52,7 +52,7 @@ export const dialogsReducer = (state: DialogsReducerStateType = initialState, ac
     }
 }
 
-export const updateNewMessageBodyCreator = (body: string): updateNewMessageBodyActionType =>
+export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyActionType =>
     ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body})
 
-export const sendMessageCreator = (): sendMessageActionType => ({type: 'SEND-MESSAGE'})
+export const sendMessageCreator = (): SendMessageActionType => ({type: 'SEND-MESSAGE'})
