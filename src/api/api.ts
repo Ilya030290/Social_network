@@ -48,37 +48,34 @@ export const instance = axios.create({
     }
 });
 
-
-export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
-    return instance
-        .get(`users?page=${currentPage}&count=${pageSize}`)
-        .then((response: AxiosResponse<UsersDataResponseType>) => {
-            return response.data;
-        });
-}
-
-export const getProfile = (userId: string | undefined) => {
-    return instance
-        .get(`profile/${userId}`)
-        .then((response: AxiosResponse<ProfileDataResponseType>) => {
-            return response.data;
-        });
-}
-
-export const unFollow = (id: number) => {
-    return instance
-        .delete(`follow/${id}`)
-}
-
-export const follow = (id: number) => {
-    return instance
-        .post(`follow/${id}`)
-}
-
-export const getAuth = () => {
-    return instance
-        .get(`auth/me`)
-        .then((response: AxiosResponse<AuthResponseType>) => {
-            return response.data;
-        });
+export const usersAPI = {
+    getUsers (currentPage: number = 1, pageSize: number = 10) {
+        return instance
+            .get(`users?page=${currentPage}&count=${pageSize}`)
+            .then((response: AxiosResponse<UsersDataResponseType>) => {
+                return response.data;
+            });
+    },
+    getProfile (userId: string | undefined) {
+        return instance
+            .get(`profile/${userId}`)
+            .then((response: AxiosResponse<ProfileDataResponseType>) => {
+                return response.data;
+            });
+    },
+    unFollow (id: number) {
+        return instance
+            .delete(`follow/${id}`)
+    },
+    follow (id: number) {
+        return instance
+            .post(`follow/${id}`)
+    },
+    getAuth () {
+        return instance
+            .get(`auth/me`)
+            .then((response: AxiosResponse<AuthResponseType>) => {
+                return response.data;
+            });
+    }
 }

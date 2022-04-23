@@ -1,3 +1,7 @@
+import {usersAPI, UsersDataResponseType} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {ThunkDispatch} from "redux-thunk";
+
 export type UserType = {
     id: number
     photos: {
@@ -117,3 +121,23 @@ export const toggleFollowingInProgress = (followingInProgress: boolean, userId: 
     followingInProgress: followingInProgress,
     userId: userId
 });
+
+
+
+//ThunkCreators
+
+export type DispatchType = ThunkDispatch<UsersReducerStateType, unknown, UsersActionsTypes>;
+export type ThunkType = ThunkAction<void, UsersReducerStateType, unknown, UsersActionsTypes>;
+
+export const getUsersThunk = (currentPage: number, pageSize: number): ThunkType => {
+    return (dispatch: DispatchType ) => {
+
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize)
+            .then((data: UsersDataResponseType) => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+            });
+    }
+}

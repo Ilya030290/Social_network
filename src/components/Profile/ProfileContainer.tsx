@@ -4,7 +4,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {getProfile, ProfileDataResponseType} from "../../api/api";
+import {ProfileDataResponseType, usersAPI} from "../../api/api";
 
 
 export type UserProfileType = {
@@ -46,7 +46,7 @@ export class ProfileContainerComponent extends React.Component<ProfileContainerC
         //@ts-ignore
         let userId = this.props.router.params.userId;
 
-        getProfile(userId)
+        usersAPI.getProfile(userId)
             .then((data: ProfileDataResponseType) => {
                 this.props.setUserProfile(data);
             });

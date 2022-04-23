@@ -4,7 +4,7 @@ import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {Button, Pagination} from "@mui/material";
-import {follow, unFollow} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 
 type UsersPropsType = {
@@ -56,7 +56,7 @@ export const Users = (props: UsersPropsType) => {
                                               disabled={props.followingInProgress.some(id => id === u.id)}
                                               onClick={() => {
                                                   props.toggleFollowingInProgress(true, u.id);
-                                                  unFollow(u.id)
+                                                  usersAPI.unFollow(u.id)
                                                       .then((response) => {
                                                           if (response.data.resultCode === 0) {
                                                               props.unFollow(u.id);
@@ -72,7 +72,7 @@ export const Users = (props: UsersPropsType) => {
                                               disabled={props.followingInProgress.some(id => id === u.id)}
                                               onClick={() => {
                                                   props.toggleFollowingInProgress(true, u.id);
-                                                  follow(u.id)
+                                                  usersAPI.follow(u.id)
                                                       .then((response) => {
                                                           if (response.data.resultCode === 0) {
                                                               props.follow(u.id);
