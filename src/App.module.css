@@ -13,7 +13,7 @@
 
 .app_wrapper_content {
     grid-area: content;
-    background-color: #94eee2;
+    background: linear-gradient(to top right, #eee246, #ff6c58, #b030a5);
     border-radius: 10px;
     border: 1px solid;
 }
