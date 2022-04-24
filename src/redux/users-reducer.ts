@@ -131,13 +131,38 @@ export type ThunkType = ThunkAction<void, UsersReducerStateType, unknown, UsersA
 
 export const getUsersThunk = (currentPage: number, pageSize: number): ThunkType => {
     return (dispatch: DispatchType ) => {
-
         dispatch(toggleIsFetching(true));
         usersAPI.getUsers(currentPage, pageSize)
             .then((data: UsersDataResponseType) => {
                 dispatch(toggleIsFetching(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsersCount(data.totalCount));
+            });
+    }
+}
+
+export const followUsers = (userId: number): ThunkType => {
+    return (dispatch: DispatchType ) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        usersAPI.follow(userId)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(follow(userId));
+                }
+                dispatch(toggleFollowingInProgress(false, userId));
+            });
+    }
+}
+
+export const unFollowUsers = (userId: number): ThunkType => {
+    return (dispatch: DispatchType ) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        usersAPI.unFollow(userId)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unFollow(userId));
+                }
+                dispatch(toggleFollowingInProgress(false, userId));
             });
     }
 }

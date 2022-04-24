@@ -63,13 +63,13 @@ export const usersAPI = {
                 return response.data;
             });
     },
-    unFollow (id: number) {
+    unFollow (userId: number) {
         return instance
-            .delete(`follow/${id}`)
+            .delete(`follow/${userId}`)
     },
-    follow (id: number) {
+    follow (userId: number) {
         return instance
-            .post(`follow/${id}`)
+            .post(`follow/${userId}`)
     },
     getAuth () {
         return instance
