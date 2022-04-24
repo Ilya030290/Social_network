@@ -56,7 +56,7 @@ export const usersAPI = {
                 return response.data;
             });
     },
-    getProfile (userId: string | undefined) {
+    getProfile (userId: number | undefined) {
         return instance
             .get(`profile/${userId}`)
             .then((response: AxiosResponse<ProfileDataResponseType>) => {
@@ -70,7 +70,10 @@ export const usersAPI = {
     follow (userId: number) {
         return instance
             .post(`follow/${userId}`)
-    },
+    }
+}
+
+export const authAPI = {
     getAuth () {
         return instance
             .get(`auth/me`)

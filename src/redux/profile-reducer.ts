@@ -1,6 +1,9 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
+import {ProfileDataResponseType, usersAPI} from "../api/api";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -85,3 +88,17 @@ export const setUserProfile = (profile: UserProfileType): SetUserProfileActionTy
     type: 'SET_USER_PROFILE',
     profile: profile
 })
+
+//ThunkCreator
+
+export type DispatchProfileType = ThunkDispatch<ProfileReducerStateType, unknown, ActionsTypes>;
+export type ThunkProfileType = ThunkAction<void, ProfileReducerStateType, unknown, ActionsTypes>
+
+export const getUserProfile = (userId: number | undefined): ThunkProfileType => {
+    return (dispatch: DispatchProfileType ) => {
+        usersAPI.getProfile(userId)
+            .then((data: ProfileDataResponseType) => {
+                dispatch(setUserProfile(data));
+            });
+    }
+}
