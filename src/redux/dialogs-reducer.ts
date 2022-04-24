@@ -52,7 +52,7 @@ export const dialogsReducer = (state: DialogsReducerStateType = initialState, ac
     }
 }
 
-export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyActionType =>
+export const updateNewMessageBody = (body: string): UpdateNewMessageBodyActionType =>
     ({type: 'UPDATE-NEW-MESSAGE-BODY', body: body})
 
-export const sendMessageCreator = (): SendMessageActionType => ({type: 'SEND-MESSAGE'})
+export const sendMessage = (): SendMessageActionType => ({type: 'SEND-MESSAGE'})
