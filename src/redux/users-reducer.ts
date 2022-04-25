@@ -131,6 +131,7 @@ export type ThunkUsersType = ThunkAction<void, UsersReducerStateType, unknown, U
 
 export const getUsersThunk = (currentPage: number, pageSize: number): ThunkUsersType => {
     return (dispatch: DispatchUsersType ) => {
+        dispatch(setCurrentPage(currentPage));
         dispatch(toggleIsFetching(true));
         usersAPI.getUsers(currentPage, pageSize)
             .then((data: UsersDataResponseType) => {
