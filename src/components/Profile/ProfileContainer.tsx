@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getUserProfile} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 export type UserProfileType = {
@@ -83,8 +84,6 @@ export const WithRouter = (Component:JSXElementConstructor<any>):JSXElementConst
     return WithRouterPropComponent;
 }
 
-//обернул в hoc WithAuthRedirect классовую компоненту ProfileContainerComponent с оболочкой WithRouter и connect
-// для того, чтобы использовать Navigate, перенаправление на страницу логин,
-// если isAuth false, т.е польз-ль не залогинен, то на страницу логиниться
+// для выполнения всё тех же задач использовал ф-цию compose из redux;
 
-export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithRouter(ProfileContainerComponent)));
+export const ProfileContainer = compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile}), WithAuthRedirect, WithRouter)(ProfileContainerComponent);

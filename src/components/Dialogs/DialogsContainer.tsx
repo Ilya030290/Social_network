@@ -4,6 +4,7 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStateToPropsType = {
@@ -24,10 +25,8 @@ const mapStateToProps = (state: AppStateType) : MapStateToPropsType => {
     }
 }
 
-//обернул в hoc WithAuthRedirect компоненту Dialogs с hoc connect для того,
-// чтобы использовать Navigate, перенаправление на страницу логин,
-// если isAuth false, т.е польз-ль не залогинен
 
+// для выполнения всё тех же задач использовал ф-цию compose из redux;
 
-export const DialogsContainer = WithAuthRedirect(connect(mapStateToProps, {sendMessage, updateNewMessageBody})(Dialogs));
+export const DialogsContainer = compose<React.ComponentType>(connect(mapStateToProps, {sendMessage, updateNewMessageBody}), WithAuthRedirect)(Dialogs);
 
