@@ -3,12 +3,11 @@ import {DialogsReducerStateType, sendMessage, updateNewMessageBody} from "../../
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type MapStateToPropsType = {
-    dialogsPage: DialogsReducerStateType,
-    isAuth: boolean
+    dialogsPage: DialogsReducerStateType
 }
 
 type MapDispatchToPropsType = {
@@ -21,11 +20,14 @@ export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType) : MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
+        dialogsPage: state.dialogsPage
     }
 }
 
+//обернул в hoc WithAuthRedirect компоненту Dialogs с hoc connect для того,
+// чтобы использовать Navigate, перенаправление на страницу логин,
+// если isAuth false, т.е польз-ль не залогинен
 
-export const DialogsContainer = connect(mapStateToProps, {sendMessage, updateNewMessageBody})(Dialogs)
+
+export const DialogsContainer = WithAuthRedirect(connect(mapStateToProps, {sendMessage, updateNewMessageBody})(Dialogs));
 

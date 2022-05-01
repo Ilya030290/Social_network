@@ -11,10 +11,7 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader/Preloader";
-
-
-
-
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type MapStateToPropsType = {
@@ -82,6 +79,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export const UsersContainer = connect(mapStateToProps,
-    {followUsers, unFollowUsers, setCurrentPage, toggleFollowingInProgress, getUsersThunk})(UsersContainerComponent);
+export const UsersContainer = WithAuthRedirect(connect(mapStateToProps,
+    {followUsers, unFollowUsers, setCurrentPage, toggleFollowingInProgress, getUsersThunk})(UsersContainerComponent));
 

@@ -4,7 +4,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {getUserProfile} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {Navigate} from "react-router-dom";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 export type UserProfileType = {
@@ -31,7 +31,6 @@ export type UserProfileType = {
 
 type MapStateToPropsType = {
     profile: UserProfileType | null
-    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -40,18 +39,20 @@ type MapDispatchToPropsType = {
 
 export type ProfileContainerComponentPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
+
 export class ProfileContainerComponent extends React.Component<ProfileContainerComponentPropsType> {
 
     componentDidMount() {
 
-        //@ts-ignore
-        let userId = this.props.router.params.userId;
+        // @ts-ignore
+        let userId = Number(this.props.router.params.userId);
+        if(!userId && this.props.profile) {
+            userId = this.props.profile.userId;
+        }
         this.props.getUserProfile(userId);
     }
 
     render() {
-
-        if(!this.props.isAuth) return <Navigate to={'/login'}/>
 
         return (
                 <Profile {...this.props} profile={this.props.profile}/>
@@ -59,10 +60,10 @@ export class ProfileContainerComponent extends React.Component<ProfileContainerC
     }
 }
 
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
+        profile: state.profilePage.profile
     }
 }
 
@@ -82,4 +83,8 @@ export const WithRouter = (Component:JSXElementConstructor<any>):JSXElementConst
     return WithRouterPropComponent;
 }
 
-export const ProfileContainer = connect(mapStateToProps, {getUserProfile})(WithRouter(ProfileContainerComponent))
+//обернул в hoc WithAuthRedirect классовую компоненту ProfileContainerComponent с оболочкой WithRouter и connect
+// для того, чтобы использовать Navigate, перенаправление на страницу логин,
+// если isAuth false, т.е польз-ль не залогинен, то на страницу логиниться
+
+export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithRouter(ProfileContainerComponent)));

@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {Navigate} from "react-router-dom";
+import {Button} from "@mui/material";
 
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -23,9 +23,6 @@ const Dialogs = (props: DialogsPropsType) => {
         props.sendMessage();
     }
 
-    if(!props.isAuth) return <Navigate to={'/login'}/>
-
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
@@ -38,13 +35,19 @@ const Dialogs = (props: DialogsPropsType) => {
                 <div>
                     <div>
                         <textarea
+                            style={{minHeight: '80px', minWidth: '200px'}}
                             onChange={onNewMessageChange}
                             value={newMessageBody}
                             placeholder={'Enter your message'}>
                         </textarea>
                     </div>
                     <div>
-                        <button onClick={onSendMessageClick}>Send</button>
+                        <Button variant={"contained"}
+                                color={"secondary"}
+                                onClick={onSendMessageClick}
+                        >
+                            Send
+                        </Button>
                     </div>
                 </div>
             </div>
