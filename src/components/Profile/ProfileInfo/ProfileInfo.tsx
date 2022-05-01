@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import {Preloader} from "../../../common/Preloader/Preloader";
 import {UserProfileType} from "../ProfileContainer";
 import UserPhoto from '../../../assets/images/user.png';
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
@@ -31,6 +32,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>instagram: {props.profile.contacts.instagram}</div>
                 <div>youtube: {props.profile.contacts.youtube}</div>
                 <div>vk: {props.profile.contacts.vk}</div>
+            </div>
+            <div>
+                <ProfileStatus status={'Blabla'} />
             </div>
         </div>
     );
