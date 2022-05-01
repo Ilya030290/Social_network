@@ -1,18 +1,21 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './ProfileStatus.module.css';
 import {Input} from "@mui/material";
 
 
-type ProfileStatusPropsType = {
-    status: string
-}
 
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({status}) => {
+export const ProfileStatus = () => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
+    const [status, setStatus] = useState<string>('I am a human');
 
     const onChangeEditMode = () => {
         setEditMode(!editMode);
+    }
+
+    const onChangeInputValue = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        let newStatus = event.currentTarget.value;
+        setStatus(newStatus);
     }
 
     return (
@@ -23,9 +26,10 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({status}) => {
                     <span className={s.statusText} onDoubleClick={onChangeEditMode}>{status}</span>
                 </div>
                 : <div>
-                    <Input defaultValue={""}
-                           onBlur={onChangeEditMode}
+                    <Input onBlur={onChangeEditMode}
                            autoFocus={true}
+                           onChange={onChangeInputValue}
+                           value={status}
                     />
                 </div>
             }

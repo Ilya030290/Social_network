@@ -34,7 +34,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>vk: {props.profile.contacts.vk}</div>
             </div>
             <div>
-                <ProfileStatus status={'Blabla'} />
+                <ProfileStatus />
             </div>
         </div>
     );
