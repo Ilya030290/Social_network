@@ -15,7 +15,9 @@ export const ProfileStatus = () => {
 
     const onChangeInputValue = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         let newStatus = event.currentTarget.value;
-        setStatus(newStatus);
+        if(newStatus) {
+            setStatus(newStatus);
+        }
     }
 
     return (
