@@ -7,6 +7,8 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
+    status: string
+    updateUserStatus: (status: string) => void
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -34,7 +36,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>vk: {props.profile.contacts.vk}</div>
             </div>
             <div>
-                <ProfileStatus />
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
             </div>
         </div>
     );

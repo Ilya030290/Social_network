@@ -1,7 +1,7 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
-import {ProfileDataResponseType, usersAPI} from "../api/api";
+import {profileAPI, ProfileDataResponseType} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 
@@ -19,17 +19,31 @@ export type SetUserProfileActionType = {
     profile: UserProfileType
 }
 
+export type SetStatusActionType = {
+    type: "SET_STATUS"
+    status: string
+}
+
+export type toggleIsFetchingActionType = {
+    type: 'TOGGLE_IS_FETCHING'
+    isFetching: boolean
+}
+
 export type ActionsTypes = AddPostActionType
     | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | SetUserProfileActionType
+    | SetStatusActionType
+    | toggleIsFetchingActionType
 
 
 export type ProfileReducerStateType = {
     posts: Array<PostType>
     newPostText: string
     profile: UserProfileType | null
+    status: string
+    isFetching: boolean
 }
 
 let initialState: ProfileReducerStateType = {
@@ -57,8 +71,10 @@ let initialState: ProfileReducerStateType = {
             large: null,
             small: null
         },
-        userId: 289
-    }
+        userId: 230
+    },
+    status: "",
+    isFetching: false
 }
 
 export const profileReducer = (state: ProfileReducerStateType = initialState, action: ActionsTypes): ProfileReducerStateType => {
@@ -74,6 +90,10 @@ export const profileReducer = (state: ProfileReducerStateType = initialState, ac
             return {...state, newPostText: action.newText};
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile};
+        case "SET_STATUS":
+            return {...state, status: action.status};
+        case 'TOGGLE_IS_FETCHING':
+            return {...state, isFetching: action.isFetching};
         default:
             return state;
     }
@@ -88,17 +108,51 @@ export const setUserProfile = (profile: UserProfileType): SetUserProfileActionTy
     type: 'SET_USER_PROFILE',
     profile: profile
 })
+export const setStatus = (status: string): SetStatusActionType => ({type: "SET_STATUS", status})
+export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => ({
+    type: 'TOGGLE_IS_FETCHING',
+    isFetching: isFetching
+});
 
 //ThunkCreator
 
 export type DispatchProfileType = ThunkDispatch<ProfileReducerStateType, unknown, ActionsTypes>;
-export type ThunkProfileType = ThunkAction<void, ProfileReducerStateType, unknown, ActionsTypes>
+export type ThunkProfileType = ThunkAction<void, ProfileReducerStateType, unknown, ActionsTypes>;
+
 
 export const getUserProfile = (userId: number | undefined): ThunkProfileType => {
-    return (dispatch: DispatchProfileType ) => {
-        usersAPI.getProfile(userId)
+    return (dispatch: DispatchProfileType) => {
+        dispatch(toggleIsFetching(true));
+        profileAPI.getProfile(userId)
             .then((data: ProfileDataResponseType) => {
                 dispatch(setUserProfile(data));
+                dispatch(toggleIsFetching(false));
+            });
+    }
+}
+
+export const getUserStatus = (userId: number | undefined): ThunkProfileType => {
+    return (dispatch: DispatchProfileType) => {
+        dispatch(toggleIsFetching(true));
+        profileAPI.getStatus(userId)
+            .then((response) => {
+                if (response.data) {
+                    dispatch(setStatus(response.data));
+                } else {
+                    dispatch(setStatus('Null'));
+                    dispatch(toggleIsFetching(false));
+                }
+            });
+    }
+}
+
+export const updateUserStatus = (status: string): ThunkProfileType => {
+    return (dispatch: DispatchProfileType) => {
+        profileAPI.updateStatus(status)
+            .then((response) => {
+                if (response.data.resultCode == 0) {
+                    dispatch(setStatus(status));
+                }
             });
     }
 }

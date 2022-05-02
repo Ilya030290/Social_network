@@ -2,10 +2,11 @@ import React, {JSXElementConstructor} from 'react';
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {getUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {Preloader} from "../../common/Preloader/Preloader";
 
 
 export type UserProfileType = {
@@ -32,10 +33,14 @@ export type UserProfileType = {
 
 type MapStateToPropsType = {
     profile: UserProfileType | null
+    status: string
+    isFetching: boolean
 }
 
 type MapDispatchToPropsType = {
     getUserProfile: (userId: number | undefined) => void
+    getUserStatus: (userId: (number | undefined)) => void
+    updateUserStatus: (status: string) => void
 }
 
 export type ProfileContainerComponentPropsType = MapStateToPropsType & MapDispatchToPropsType;
@@ -47,16 +52,24 @@ export class ProfileContainerComponent extends React.Component<ProfileContainerC
 
         // @ts-ignore
         let userId = Number(this.props.router.params.userId);
-        if(!userId && this.props.profile) {
-            userId = this.props.profile.userId;
+        if (!userId && this.props.profile) {
+            userId = 23050;
         }
         this.props.getUserProfile(userId);
+        this.props.getUserStatus(userId);
     }
 
     render() {
 
         return (
-                <Profile {...this.props} profile={this.props.profile}/>
+            <div>
+                {this.props.isFetching ? <Preloader/> : null}
+                <Profile {...this.props}
+                         profile={this.props.profile}
+                         status={this.props.status}
+                         updateUserStatus={this.props.updateUserStatus}
+                />
+            </div>
         );
     }
 }
@@ -64,26 +77,30 @@ export class ProfileContainerComponent extends React.Component<ProfileContainerC
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        isFetching: state.profilePage.isFetching
     }
 }
 
 //Оболочка для классовой компоненты, чтоб не откатыватся на 5 версию router-dom
-export const WithRouter = (Component:JSXElementConstructor<any>):JSXElementConstructor<any>=> {
-    function WithRouterPropComponent(props:any) {
+export const WithRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
+    function WithRouterPropComponent(props: any) {
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{location, navigate, params}}
             />
         );
     }
+
     return WithRouterPropComponent;
 }
 
 // для выполнения всё тех же задач использовал ф-цию compose из redux;
 
-export const ProfileContainer = compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile}), WithAuthRedirect, WithRouter)(ProfileContainerComponent);
+export const ProfileContainer = compose<React.ComponentType>(connect(mapStateToProps,
+    {getUserProfile, getUserStatus, updateUserStatus}), WithAuthRedirect, WithRouter)(ProfileContainerComponent);

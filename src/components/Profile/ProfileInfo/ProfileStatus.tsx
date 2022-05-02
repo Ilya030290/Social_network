@@ -1,16 +1,30 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './ProfileStatus.module.css';
 import {Input} from "@mui/material";
 
+type ProfileStatusPropsType = {
+    status: string
+    updateUserStatus: (status: string) => void
+}
 
-
-export const ProfileStatus = () => {
+export const ProfileStatus = (props: ProfileStatusPropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [status, setStatus] = useState<string>('I am a human');
+    const [status, setStatus] = useState<string>(props.status);
 
-    const onChangeEditMode = () => {
-        setEditMode(!editMode);
+    useEffect(()=>{
+        if (status !== props.status) {
+            setStatus(props.status);
+        }
+    }, [])
+
+    const activateEditMode = () => {
+        setEditMode(true);
+    }
+
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        props.updateUserStatus(status);
     }
 
     const onChangeInputValue = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -24,18 +38,17 @@ export const ProfileStatus = () => {
         <div className={s.profileStatus}>
             {!editMode
                 ? <div>
-                    <span className={s.status}>My status:</span>
-                    <span className={s.statusText} onDoubleClick={onChangeEditMode}>{status}</span>
+                    <span className={s.status}>Status:</span>
+                    <span className={s.statusText} onDoubleClick={activateEditMode}>{props.status}</span>
                 </div>
                 : <div>
-                    <Input onBlur={onChangeEditMode}
+                    <Input onBlur={deactivateEditMode}
                            autoFocus={true}
                            onChange={onChangeInputValue}
                            value={status}
                     />
                 </div>
             }
-
         </div>
     );
 };
