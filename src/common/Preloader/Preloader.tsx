@@ -1,9 +1,21 @@
 import React from 'react';
-import preloader from "../../assets/images/1488.gif";
+import s from "./Preloader.module.css";
+
 
 export const Preloader = () => {
     return (
-        <img src={preloader} alt={'preloader'}/>
+        <div className={s.preloader}>
+            <div className={s.lds_roller}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
     );
 };
 
