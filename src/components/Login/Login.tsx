@@ -1,65 +1,64 @@
 import React from 'react';
-import {Button, Checkbox, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@mui/material";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
 import s from "./Login.module.css";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {AuthReducerStateType} from "../../redux/auth-reducer";
+import {Navigate} from "react-router-dom";
 
-export const LoginPage = () => {
+type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
 
-    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div className={s.formBlock}>
+                <div>
+                    <Field placeholder={"Login"} name={"login"} component={"input"}/>
+                </div>
+                <div>
+                    <Field placeholder={"Password"} name={"password"} component={"input"}/>
+                </div>
+                <div>
+                    <Field type={"checkbox"} name={"rememberMe"} component={"input"}/>Remember me
+                </div>
+                <div>
+                    <button>
+                        Login
+                    </button>
+                </div>
+            </div>
+        </form>
+    );
+}
+
+const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
+
+
+type LoginPagePropsType = AuthReducerStateType & {
+    makeLogIn: (email: string, password: string, rememberMe: boolean) => void
+    makeLogOut: () => void
+}
+
+
+export const LoginPage = (props: LoginPagePropsType) => {
+
+    const onSubmit = (formData: FormDataType) => {
+        console.log(formData);
+        props.makeLogIn(formData.login, formData.password, formData.rememberMe);
+    }
+
+    if (props.isAuth) {
+        return <Navigate to={"/profile"}/>
+    }
 
     return (
         <div className={s.loginPage}>
             <h1>LOGIN</h1>
-            <form className={s.form}>
-                <div>
-                    <FormControl sx={{ m: 2, width: '30ch'}}>
-                    <InputLabel htmlFor={"outlined-adornment-login"}>Login</InputLabel>
-                    <OutlinedInput
-                        id={"outlined-adornment-login"}
-                        /*value={values.amount}
-                        onChange={handleChange('amount')}*/
-                        /*startAdornment={<InputAdornment position="start">$</InputAdornment>}*/
-                        label={"Login"}
-                    />
-                    </FormControl>
-                </div>
-                <div>
-                    <FormControl sx={{ m: 2, width: '30ch'}} variant={"outlined"}>
-                    <InputLabel htmlFor={"outlined-adornment-password"}>Password</InputLabel>
-                    <OutlinedInput
-                        id={"outlined-adornment-password"}
-                        /*type={values.showPassword ? 'text' : 'password'}
-                        value={values.password}
-                        onChange={handleChange('password')}*/
-                        endAdornment={
-                            <InputAdornment position={"end"}>
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    /*onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}*/
-                                    edge="end"
-                                >
-                                    {/*{values.showPassword ? <VisibilityOff /> : <Visibility />}*/}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="Password"
-                    />
-                    </FormControl>
-                </div>
-                <div>
-                    <Checkbox {...label} defaultChecked color={"secondary"} />Remember me
-                </div>
-                <div>
-                    <Button variant={"contained"}
-                            color={"secondary"}
-                            onClick={() => {}}
-                    >
-                        Login
-                    </Button>
-                </div>
-            </form>
+            <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     );
-};
+}
 

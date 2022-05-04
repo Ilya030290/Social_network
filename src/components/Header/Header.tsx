@@ -1,13 +1,16 @@
 import React from 'react';
 import s from "./Header.module.css";
-import InstagramIcon from '@mui/icons-material/Instagram';
 import {NavLink} from "react-router-dom";
 import LogoIcon from "../../assets/images/loon-icon.svg";
+import {AuthReducerStateType} from "../../redux/auth-reducer";
+import {Button} from "@mui/material";
 
-type HeaderPropsType = {
-    isAuth: boolean,
-    login: string
+
+type HeaderPropsType = AuthReducerStateType & {
+    setAuthUserData: (id: number, email:string, login:string) => void
+    makeLogOut: () => void
 }
+
 
 const Header = (props: HeaderPropsType) => {
     return (
@@ -15,9 +18,18 @@ const Header = (props: HeaderPropsType) => {
             <img className={s.icon} src={LogoIcon}></img>
             <div className={s.loginBlock}>
                 { props.isAuth
-                    ? props.login
-                    : <NavLink to={'/login'}>Login</NavLink>
-                }
+                    ? <div>
+                        <span>{props.login}</span>
+                        <Button variant={"contained"}
+                                style={{marginLeft: "10px"}}
+                                size={"small"}
+                                color={"primary"}
+                                onClick={props.makeLogOut}
+                        >
+                            LogOut
+                        </Button>
+                    </div>
+                    : <NavLink to='/login'>Login</NavLink>}
             </div>
         </header>
     );

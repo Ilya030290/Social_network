@@ -45,7 +45,11 @@ export type UpdateStatusResponseType = {
     data: {}
 }
 
-
+export type LogOutResponseType = {
+    resultCode: number
+    messages: []
+    data: {}
+}
 
 export const instance = axios.create({
     withCredentials: true,
@@ -54,6 +58,7 @@ export const instance = axios.create({
         "API-KEY": "262e2c2b-b3e7-4ca9-aebd-afd6b759e25e"
     }
 });
+
 
 export const usersAPI = {
     getUsers (currentPage: number = 1, pageSize: number = 10) {
@@ -70,6 +75,7 @@ export const usersAPI = {
     }
 }
 
+
 export const profileAPI = {
     getProfile (userId: number | undefined) {
         return instance.get(`profile/${userId}`)
@@ -85,11 +91,25 @@ export const profileAPI = {
     }
 }
 
+
 export const authAPI = {
     getAuth () {
         return instance.get(`auth/me`)
             .then((response: AxiosResponse<AuthResponseType>) => {
                 return response.data;
             });
+    },
+    logIn(email: string, password: string, rememberMe: boolean) {
+        return instance.post('auth/login', {email, password, rememberMe})
+            .then((response) => {
+                return response;
+            })
+    },
+    logOut() {
+        return instance.delete('auth/login')
+            .then((response: AxiosResponse<LogOutResponseType>) => {
+                debugger
+                return response;
+            })
     }
 }
