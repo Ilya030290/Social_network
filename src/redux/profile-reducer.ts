@@ -6,7 +6,8 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 
 export type AddPostActionType = {
-    type: 'ADD-POST'
+    type: 'ADD-POST',
+    newPostText: string
 }
 
 export type UpdateNewPostTextActionType = {
@@ -30,7 +31,6 @@ export type toggleIsFetchingActionType = {
 }
 
 export type ActionsTypes = AddPostActionType
-    | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | SetUserProfileActionType
@@ -40,7 +40,6 @@ export type ActionsTypes = AddPostActionType
 
 export type ProfileReducerStateType = {
     posts: Array<PostType>
-    newPostText: string
     profile: UserProfileType | null
     status: string
     isFetching: boolean
@@ -51,7 +50,6 @@ let initialState: ProfileReducerStateType = {
         {id: 1, message: 'My first post', likeCount: 13},
         {id: 2, message: 'I want to be a frontend developer', likeCount: 15}
     ] as Array<PostType>,
-    newPostText: '',
     profile: {
         aboutMe: 'I want tobe a frontend developer',
         contacts: {
@@ -83,11 +81,8 @@ export const profileReducer = (state: ProfileReducerStateType = initialState, ac
         case 'ADD-POST':
             return {
                 ...state,
-                newPostText: '',
-                posts: [{id: new Date().getTime(), message: state.newPostText, likeCount: 0}, ...state.posts]
+                posts: [{id: new Date().getTime(), message: action.newPostText, likeCount: 0}, ...state.posts]
             };
-        case "UPDATE-NEW-POST-TEXT":
-            return {...state, newPostText: action.newText};
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile};
         case "SET_STATUS":
@@ -99,16 +94,12 @@ export const profileReducer = (state: ProfileReducerStateType = initialState, ac
     }
 }
 
-export const addPost = (): AddPostActionType => ({type: 'ADD-POST'})
-export const updateNewPostText = (text: string): UpdateNewPostTextActionType => ({
-    type: 'UPDATE-NEW-POST-TEXT',
-    newText: text
-})
+export const addPost = (newPostText: string): AddPostActionType => ({type: 'ADD-POST', newPostText});
 export const setUserProfile = (profile: UserProfileType): SetUserProfileActionType => ({
     type: 'SET_USER_PROFILE',
     profile: profile
-})
-export const setStatus = (status: string): SetStatusActionType => ({type: "SET_STATUS", status})
+});
+export const setStatus = (status: string): SetStatusActionType => ({type: "SET_STATUS", status});
 export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => ({
     type: 'TOGGLE_IS_FETCHING',
     isFetching: isFetching
