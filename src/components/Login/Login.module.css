@@ -13,3 +13,8 @@
     align-items: center;
     justify-content: space-evenly;
 }
+
+.rememberMe {
+    display: flex;
+    flex-direction: row;
+}

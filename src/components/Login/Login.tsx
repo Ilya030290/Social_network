@@ -5,6 +5,7 @@ import {AuthReducerStateType} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {Input} from "../../common/Forms/Forms";
 import {required} from "../../utils/validators/validators";
+import style from './../../common/Forms/Forms.module.css';
 
 type FormDataType = {
     login: string
@@ -27,17 +28,23 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <div>
                     <Field placeholder={"Password"}
                            name={"password"}
+                           type={"password"}
                            component={Input}
                            validate={[required]}
                     />
                 </div>
-                <div>
+                <div className={s.rememberMe}>
                     <Field type={"checkbox"}
                            name={"rememberMe"}
                            component={Input}
                     />
                     Remember me
                 </div>
+                {
+                  props.error &&  <div className={style.formSummaryError}>
+                    {props.error}
+                </div>
+                }
                 <div>
                     <button>
                         Login

@@ -24,7 +24,7 @@ export type UserProfileType = {
     lookingForAJob: boolean,
     lookingForAJobDescription: string | null,
     fullName: string,
-    userId: number,
+    userId: number | null,
     photos: {
         small: string | null,
         large: string | null
@@ -35,6 +35,8 @@ type MapStateToPropsType = {
     profile: UserProfileType | null
     status: string
     isFetching: boolean
+    authorizedUserId: number | null
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -53,7 +55,8 @@ export class ProfileContainerComponent extends React.Component<ProfileContainerC
         // @ts-ignore
         let userId = Number(this.props.router.params.userId);
         if (!userId && this.props.profile) {
-            userId = 23050;
+            // @ts-ignore
+            userId = this.props.authorizedUserId;
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
@@ -79,7 +82,9 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        isFetching: state.profilePage.isFetching
+        isFetching: state.profilePage.isFetching,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 

@@ -108,7 +108,6 @@ export const authAPI = {
     logOut() {
         return instance.delete('auth/login')
             .then((response: AxiosResponse<LogOutResponseType>) => {
-                debugger
                 return response;
             })
     }
