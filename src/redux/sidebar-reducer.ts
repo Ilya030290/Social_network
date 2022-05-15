@@ -1,12 +1,12 @@
 import React from 'react';
-import {ActionsTypes} from "./profile-reducer";
+import {DialogsProfileReducersActionsTypes} from "./profile-reducer";
 
 
 type SidebarReducerState = {}
 
 let initialState = {}
 
-export const sidebarReducer = (state: SidebarReducerState = initialState, action: ActionsTypes) => {
+export const sidebarReducer = (state: SidebarReducerState = initialState, action: DialogsProfileReducersActionsTypes) => {
 
     return state
 };

@@ -2,7 +2,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, ProfileDataResponseType} from "../api/api";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {ThunkType} from "./redux-store";
 
 
 export type AddPostActionType = {
@@ -30,7 +30,7 @@ export type toggleIsFetchingActionType = {
     isFetching: boolean
 }
 
-export type ActionsTypes = AddPostActionType
+export type DialogsProfileReducersActionsTypes = AddPostActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | SetUserProfileActionType
@@ -75,7 +75,7 @@ let initialState: ProfileReducerStateType = {
     isFetching: false
 }
 
-export const profileReducer = (state: ProfileReducerStateType = initialState, action: ActionsTypes): ProfileReducerStateType => {
+export const profileReducer = (state: ProfileReducerStateType = initialState, action: DialogsProfileReducersActionsTypes): ProfileReducerStateType => {
 
     switch (action.type) {
         case 'ADD-POST':
@@ -107,12 +107,8 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionTyp
 
 //ThunkCreator
 
-export type DispatchProfileType = ThunkDispatch<ProfileReducerStateType, unknown, ActionsTypes>;
-export type ThunkProfileType = ThunkAction<void, ProfileReducerStateType, unknown, ActionsTypes>;
-
-
-export const getUserProfile = (userId: number | undefined): ThunkProfileType => {
-    return (dispatch: DispatchProfileType) => {
+export const getUserProfile = (userId: number | undefined): ThunkType => {
+    return (dispatch) => {
         dispatch(toggleIsFetching(true));
         profileAPI.getProfile(userId)
             .then((data: ProfileDataResponseType) => {
@@ -122,8 +118,8 @@ export const getUserProfile = (userId: number | undefined): ThunkProfileType => 
     }
 }
 
-export const getUserStatus = (userId: number | undefined): ThunkProfileType => {
-    return (dispatch: DispatchProfileType) => {
+export const getUserStatus = (userId: number | undefined): ThunkType => {
+    return (dispatch) => {
         dispatch(toggleIsFetching(true));
         profileAPI.getStatus(userId)
             .then((response) => {
@@ -137,8 +133,8 @@ export const getUserStatus = (userId: number | undefined): ThunkProfileType => {
     }
 }
 
-export const updateUserStatus = (status: string): ThunkProfileType => {
-    return (dispatch: DispatchProfileType) => {
+export const updateUserStatus = (status: string): ThunkType => {
+    return (dispatch) => {
         profileAPI.updateStatus(status)
             .then((response) => {
                 if (response.data.resultCode == 0) {

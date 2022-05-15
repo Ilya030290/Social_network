@@ -1,6 +1,6 @@
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
 import {MessageType} from "../components/Dialogs/Message/Message";
-import {ActionsTypes} from "./profile-reducer";
+import {DialogsProfileReducersActionsTypes} from "./profile-reducer";
 
 
 export type UpdateNewMessageBodyActionType = {
@@ -38,7 +38,7 @@ let initialState = {
     ] as Array<DialogItemType>
 }
 
-export const dialogsReducer = (state: DialogsReducerStateType = initialState, action: ActionsTypes): DialogsReducerStateType => {
+export const dialogsReducer = (state: DialogsReducerStateType = initialState, action: DialogsProfileReducersActionsTypes): DialogsReducerStateType => {
 
     switch (action.type) {
         case 'SEND-MESSAGE':

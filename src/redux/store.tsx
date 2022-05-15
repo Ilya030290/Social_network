@@ -1,7 +1,7 @@
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {MessageType} from "../components/Dialogs/Message/Message";
 import {DialogItemType} from "../components/Dialogs/DialogItem/DialogItem";
-import {ActionsTypes, profileReducer} from "./profile-reducer";
+import {DialogsProfileReducersActionsTypes, profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
@@ -35,7 +35,7 @@ export type StoreType = {
     _callSubscriber: (state:StateType) => void
     getState: () => StateType
     subscribe: (callback: () => void) => void
-    dispatch: (action: ActionsTypes) => void
+    dispatch: (action: DialogsProfileReducersActionsTypes) => void
 }
 
 export const store: StoreType = {

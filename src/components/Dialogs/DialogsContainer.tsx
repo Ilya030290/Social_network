@@ -2,7 +2,7 @@ import React from 'react';
 import {DialogsReducerStateType, sendMessage} from "../../redux/dialogs-reducer"
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
@@ -18,7 +18,7 @@ type MapDispatchToPropsType = {
 export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
-const mapStateToProps = (state: AppStateType) : MapStateToPropsType => {
+const mapStateToProps = (state: AppRootStateType) : MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
