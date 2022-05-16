@@ -24,7 +24,7 @@ export const initializedSuccessAC = () => ({type: "INITIALIZED_SUCCESS"});
 
 export const initializeApp = (): ThunkType => (dispatch) => {
        let promise = dispatch(getAuthUserData());
-       promise.then(() => {
-           dispatch(initializedSuccessAC());
-       })
+    Promise.all([promise]).then(() => {
+        dispatch(initializedSuccessAC());
+    });
     }
