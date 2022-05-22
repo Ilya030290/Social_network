@@ -36,7 +36,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>vk: {props.profile.contacts.vk}</div>
             </div>
             <div>
-                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+                <ProfileStatus profileStatus={props.status} updateUserProfileStatus={props.updateUserStatus}/>
             </div>
         </div>
     );
