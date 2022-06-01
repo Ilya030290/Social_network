@@ -30,12 +30,18 @@ export type toggleIsFetchingActionType = {
     isFetching: boolean
 }
 
+export type DeletePostActionType = {
+    type: "DELETE_POST"
+    postId: number
+};
+
 export type DialogsProfileReducersActionsTypes = AddPostActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | SetUserProfileActionType
     | SetStatusActionType
     | toggleIsFetchingActionType
+    | DeletePostActionType
 
 
 export type ProfileReducerStateType = {
@@ -83,6 +89,8 @@ export const profileReducer = (state: ProfileReducerStateType = initialState, ac
                 ...state,
                 posts: [{id: new Date().getTime(), message: action.newPostText, likeCount: 0}, ...state.posts]
             };
+        case "DELETE_POST":
+            return {...state, posts: state.posts.filter(post => post.id !== action.postId)};
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile};
         case "SET_STATUS":
@@ -99,6 +107,7 @@ export const setUserProfile = (profile: UserProfileType): SetUserProfileActionTy
     type: 'SET_USER_PROFILE',
     profile: profile
 });
+export const deletePost = (postId: number): DeletePostActionType => ({type: "DELETE_POST", postId});
 export const setStatus = (status: string): SetStatusActionType => ({type: "SET_STATUS", status});
 export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => ({
     type: 'TOGGLE_IS_FETCHING',
