@@ -19,11 +19,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
 
     return (
         <div>
-            <div>
-                <img className={s.img_content}
-                     src={'https://images.wallpaperscraft.ru/image/single/krasivyj_pejzazh_gory_ozero_priroda_93318_1600x900.jpg'}
-                     alt={'img_content'}/>
-            </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large !== null ? props.profile.photos.large : UserPhoto} alt={'ava'}/>
                 <div>{props.profile.fullName}</div>

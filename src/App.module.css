@@ -1,5 +1,5 @@
 .app_wrapper {
-    width: 1200px;
+    width: 1100px;
     margin: 10px auto;
     display: grid;
     grid-template-areas:
@@ -7,13 +7,14 @@
             "nav content";
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
-    grid-row-gap: 5px;
-    grid-column-gap: 5px;
+    grid-row-gap: 15px;
+    grid-column-gap: 15px;
 }
 
 .app_wrapper_content {
     grid-area: content;
-    background: linear-gradient(to top right, #eee246, #ff6c58, #b030a5);
-    border-radius: 10px;
-    border: 1px solid;
+    background: #fafaf9;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 0 6px rgba(0,0,0,0.5);
 }

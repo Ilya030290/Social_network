@@ -21,9 +21,8 @@ const Header = (props: HeaderPropsType) => {
                     ? <div>
                         <span>{props.login}</span>
                         <Button variant={"contained"}
-                                style={{marginLeft: "10px"}}
+                                style={{marginLeft: "10px", backgroundColor: "#38434f"}}
                                 size={"small"}
-                                color={"primary"}
                                 onClick={props.makeLogOut}
                         >
                             LogOut
