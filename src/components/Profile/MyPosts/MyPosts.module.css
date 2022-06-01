@@ -3,6 +3,17 @@
 }
 
 .postsBlock {
-    padding: 10px;
+    margin-left: 70px;
+    margin-bottom: 10px;
+}
+
+.myPosts {
+display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.myPosts button {
+    margin-left: 10px;
 }
 

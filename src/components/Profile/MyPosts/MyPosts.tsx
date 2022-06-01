@@ -17,17 +17,20 @@ const maxLength40 = maxLengthCreator(40);
 const AddNewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field
-                    component={Textarea}
-                    placeholder={"Add new post"}
-                    name={'newPostText'}
-                    validate={[required, maxLength40]}
-                />
+            <div className={s.myPosts}>
+                <div>
+                    <Field
+                        component={Textarea}
+                        placeholder={"Add new post"}
+                        name={'newPostText'}
+                        validate={[required, maxLength40]}
+                    />
+                </div>
+                <div>
+                    <button>Add post</button>
+                </div>
             </div>
-            <div>
-                <button>Add post</button>
-            </div>
+
         </form>
     );
 }
@@ -46,7 +49,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     return (
         <div className={s.postsBlock}>
-            <h3>My posts</h3>
+            <h4>My posts</h4>
             <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {postElements}

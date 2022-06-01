@@ -1,10 +1,17 @@
 .descriptionBlock {
-    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 30px 0 50px 80px;
+}
+
+.description {
+    margin-left: 80px;
 }
 
 .descriptionBlock img {
-    width: 210px;
-    height: 210px;
+    width: 160px;
+    height: 160px;
     border: 1px solid rgba(0,0,0,0.2);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     border-radius: 50%;
