@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./Header.module.css";
 import {NavLink} from "react-router-dom";
-import LogoIcon from "../../assets/images/loon-icon.svg";
+import LogoIcon from "../../assets/images/facebook.png";
 import {AuthReducerStateType} from "../../redux/auth-reducer";
 import {Button} from "@mui/material";
 

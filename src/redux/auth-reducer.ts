@@ -1,7 +1,6 @@
 import {authAPI, AuthResponseType} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {ThunkType} from "./redux-store";
-import {ThunkDispatch} from "redux-thunk";
 
 export type AuthReducerStateType = {
     id: number | null,
