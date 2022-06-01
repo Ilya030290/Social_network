@@ -1,3 +1,23 @@
 .item {
     color: #90092d;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.item button {
+    margin-left: 10px;
+    border: 1px solid #38434f;
+    border-radius: 50%;
+    background-color: #38434f;
+    color: #e9e5df;
+    width: 30px;
+    height: 30px;
+}
+
+.item button:hover {
+    cursor: pointer;
+    background-color: #0a66c2;
+    border: 1px solid #0a66c2;
 }

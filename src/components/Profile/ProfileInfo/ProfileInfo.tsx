@@ -22,7 +22,8 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large !== null ? props.profile.photos.large : UserPhoto} alt={'ava'}/>
                 <div className={s.description}>
-                    <div>{props.profile.fullName}</div>
+                    <div className={s.name}>{props.profile.fullName}</div>
+                    <ProfileStatus profileStatus={props.status} updateUserProfileStatus={props.updateUserStatus}/>
                     <div>{props.profile.aboutMe}</div>
                     <div>{props.profile.lookingForAJobDescription}</div>
                     <div>My contacts</div>
@@ -30,7 +31,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                     <div>instagram: {props.profile.contacts.instagram}</div>
                     <div>youtube: {props.profile.contacts.youtube}</div>
                     <div>vk: {props.profile.contacts.vk}</div>
-                    <ProfileStatus profileStatus={props.status} updateUserProfileStatus={props.updateUserStatus}/>
                 </div>
             </div>
         </div>

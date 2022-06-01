@@ -16,3 +16,9 @@
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     border-radius: 50%;
 }
+
+.name {
+    font-weight: 550;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
