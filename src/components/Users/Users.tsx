@@ -3,7 +3,8 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {Button, Pagination} from "@mui/material";
+import {Button} from "@mui/material";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 
 
@@ -20,21 +21,10 @@ type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
+
 
     return (
         <div className={s.usersBlock}>
-            <div className={s.pagination}>
-                <Pagination count={pages.length}
-                            page={props.currentPage}
-                            onChange={(e, num) => props.onPageChanged(num)}
-                            color="secondary"
-                />
-            </div>
             {
                 props.users.map(u => <div key={u.id} className={s.user}>
                     <span>
@@ -79,6 +69,10 @@ export const Users = (props: UsersPropsType) => {
                     </div>
                 )
             }
+            <Paginator totalUsersCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       currentPage={props.currentPage}
+                       onPageChanged={props.onPageChanged}/>
         </div>
     );
 }

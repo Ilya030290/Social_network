@@ -6,7 +6,7 @@
 }
 
 .pagination {
-    margin: 20px 0 20px 20px;
+    margin: 20px 0 20px 27%;
 }
 
 .user {
@@ -20,13 +20,4 @@
     border-radius: 50%;
 }
 
-.selectedPage {
-    font-weight: bold;
-    color: #c5172b;
-    cursor: pointer;
-}
-
-.nonSelected {
-    cursor: pointer;
-}
 
