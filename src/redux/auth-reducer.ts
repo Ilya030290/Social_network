@@ -1,6 +1,6 @@
 import {authAPI, AuthResponseType} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {ThunkType} from "./redux-store";
+import {DispatchType, ThunkType} from "./redux-store";
 
 export type AuthReducerStateType = {
     id: number | null,
@@ -35,7 +35,7 @@ export const setAuthUserData = (id: number, email: string, login: string) => {
 
 //ThunkCreator
 
-export const getAuthUserData = (): ThunkType => async (dispatch) => {
+export const getAuthUserData = (): ThunkType => async (dispatch: DispatchType) => {
     let response: AuthResponseType = await authAPI.getAuth();
     if (response.resultCode === 0) {
         let {id, email, login} = response.data;
@@ -44,7 +44,7 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
 }
 
 export const makeLogIn = (email: string, password: string, rememberMe: boolean): ThunkType =>
-    async (dispatch) => {
+    async (dispatch: DispatchType) => {
         let response = await authAPI.logIn(email, password, rememberMe);
         if (response.data.resultCode === 0) {
             window.location.reload();
@@ -54,7 +54,7 @@ export const makeLogIn = (email: string, password: string, rememberMe: boolean):
         }
     }
 
-export const makeLogOut = (): ThunkType => async (dispatch) => {
+export const makeLogOut = (): ThunkType => async (dispatch: DispatchType) => {
     let response = await authAPI.logOut();
     window.location.reload();
 }

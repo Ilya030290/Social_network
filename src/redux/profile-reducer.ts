@@ -2,7 +2,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 import {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import {UserProfileType} from "../components/Profile/ProfileContainer";
 import {profileAPI, ProfileDataResponseType} from "../api/api";
-import {ThunkType} from "./redux-store";
+import {DispatchType, ThunkType} from "./redux-store";
 
 
 export type AddPostActionType = {
@@ -116,7 +116,7 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionTyp
 
 //ThunkCreator
 
-export const getUserProfile = (userId: number | undefined): ThunkType => async (dispatch) => {
+export const getUserProfile = (userId: number | undefined): ThunkType => async (dispatch: DispatchType) => {
     dispatch(toggleIsFetching(true));
     const response: ProfileDataResponseType = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(response));
@@ -124,7 +124,7 @@ export const getUserProfile = (userId: number | undefined): ThunkType => async (
 }
 
 
-export const getUserStatus = (userId: number | undefined): ThunkType => async (dispatch) => {
+export const getUserStatus = (userId: number | undefined): ThunkType => async (dispatch: DispatchType) => {
     dispatch(toggleIsFetching(true));
     const response = await profileAPI.getStatus(userId);
     if (response.data) {
@@ -136,7 +136,7 @@ export const getUserStatus = (userId: number | undefined): ThunkType => async (d
 }
 
 
-export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
+export const updateUserStatus = (status: string): ThunkType => async (dispatch: DispatchType) => {
     const response = await profileAPI.updateStatus(status);
     if (response.data.resultCode == 0) {
         dispatch(setStatus(status));

@@ -1,4 +1,4 @@
-import {ThunkType} from "./redux-store";
+import {DispatchType, ThunkType} from "./redux-store";
 import {getAuthUserData} from "./auth-reducer";
 
 const initialState = {
@@ -22,7 +22,7 @@ export const initializedSuccessAC = () => ({type: "INITIALIZED_SUCCESS"});
 
 //ThunkCreator
 
-export const initializeApp = (): ThunkType => (dispatch) => {
+export const initializeApp = (): ThunkType => (dispatch: DispatchType) => {
        let promise = dispatch(getAuthUserData());
     Promise.all([promise]).then(() => {
         dispatch(initializedSuccessAC());
