@@ -116,39 +116,29 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionTyp
 
 //ThunkCreator
 
-export const getUserProfile = (userId: number | undefined): ThunkType => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true));
-        profileAPI.getProfile(userId)
-            .then((data: ProfileDataResponseType) => {
-                dispatch(setUserProfile(data));
-                dispatch(toggleIsFetching(false));
-            });
+export const getUserProfile = (userId: number | undefined): ThunkType => async (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    const response: ProfileDataResponseType = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(response));
+    dispatch(toggleIsFetching(false));
+}
+
+
+export const getUserStatus = (userId: number | undefined): ThunkType => async (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    const response = await profileAPI.getStatus(userId);
+    if (response.data) {
+        dispatch(setStatus(response.data));
+    } else {
+        dispatch(setStatus('Status not found'));
+        dispatch(toggleIsFetching(false));
     }
 }
 
-export const getUserStatus = (userId: number | undefined): ThunkType => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true));
-        profileAPI.getStatus(userId)
-            .then((response) => {
-                if (response.data) {
-                    dispatch(setStatus(response.data));
-                } else {
-                    dispatch(setStatus('Null'));
-                    dispatch(toggleIsFetching(false));
-                }
-            });
-    }
-}
 
-export const updateUserStatus = (status: string): ThunkType => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status)
-            .then((response) => {
-                if (response.data.resultCode == 0) {
-                    dispatch(setStatus(status));
-                }
-            });
+export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
+    const response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode == 0) {
+        dispatch(setStatus(status));
     }
 }
