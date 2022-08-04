@@ -2,11 +2,11 @@ import React, {JSXElementConstructor} from 'react';
 import {Profile} from "./Profile";
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-sagas";
 
 
 export type UserProfileType = {

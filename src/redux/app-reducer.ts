@@ -18,7 +18,7 @@ export const appReducer = (state: InitialAppReducerStateType = initialState, act
     }
 }
 
-export const initializedSuccessAC = () => ({type: "INITIALIZED_SUCCESS"});
+export const initializedSuccessAC = () => ({type: "INITIALIZED_SUCCESS"} as const);
 
 //ThunkCreator
 

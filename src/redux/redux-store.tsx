@@ -8,6 +8,8 @@ import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import {appReducer, AppReducerActionsType} from "./app-reducer";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import createSagaMiddleware from 'redux-saga';
+import {profileWatcherSaga} from "./profile-sagas";
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -21,7 +23,15 @@ export const rootReducer = combineReducers({
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+const sagaMiddleware = createSagaMiddleware();
+
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, sagaMiddleware));
+
+sagaMiddleware.run(rootWatcher);
+
+function* rootWatcher() {
+    yield profileWatcherSaga();
+}
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>;
 export type DispatchType = ThunkDispatch<AppRootStateType, unknown, AppActionsType>;

@@ -1,6 +1,7 @@
 import {authAPI, AuthResponseType} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {DispatchType, ThunkType} from "./redux-store";
+import {call, put} from 'redux-saga/effects';
 
 export type AuthReducerStateType = {
     id: number | null,
@@ -16,9 +17,7 @@ const initialState: AuthReducerStateType = {
     isAuth: false
 }
 
-type setAuthUserDataAT = ReturnType<typeof setAuthUserData>;
-
-export type AuthReducerActionsType = setAuthUserDataAT;
+export type AuthReducerActionsType = ReturnType<typeof setAuthUserData>;
 
 export const authReducer = (state: AuthReducerStateType = initialState, action: AuthReducerActionsType): AuthReducerStateType => {
     switch (action.type) {
@@ -32,6 +31,16 @@ export const authReducer = (state: AuthReducerStateType = initialState, action: 
 export const setAuthUserData = (id: number, email: string, login: string) => {
     return {type: 'auth/SET-AUTH-USER-DATA', data: {id, email, login}} as const
 }
+
+//sagas
+/*export function* getAuthUserDataWorkerSaga() {
+    let res: AuthResponseType = yield call(authAPI.getAuth);
+    if (res.resultCode === 0) {
+        let {id, email, login} = res.data;
+        yield put(setAuthUserData(id, email, login));
+    }
+}
+export const getAuthUserData = () => ({type:"auth/GET-AUTH-USER-DATA"});*/
 
 //ThunkCreator
 

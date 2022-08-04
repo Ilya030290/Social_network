@@ -3,15 +3,9 @@ import {MessageType} from "../components/Dialogs/Message/Message";
 import {DialogsProfileReducersActionsTypes} from "./profile-reducer";
 
 
-export type UpdateNewMessageBodyActionType = {
-    type: 'UPDATE-NEW-MESSAGE-BODY'
-    body: string
-}
+export type UpdateNewMessageBodyActionType = ReturnType<typeof UpdateNewMessageBody>
 
-export type SendMessageActionType = {
-    type: 'SEND-MESSAGE',
-    newMessage: string
-}
+export type SendMessageActionType = ReturnType<typeof sendMessage>;
 
 
 export type DialogsReducerStateType = {
@@ -49,4 +43,5 @@ export const dialogsReducer = (state: DialogsReducerStateType = initialState, ac
     }
 }
 
-export const sendMessage = (newMessage: string): SendMessageActionType => ({type: 'SEND-MESSAGE', newMessage})
+export const sendMessage = (newMessage: string) => ({type: 'SEND-MESSAGE', newMessage} as const);
+export const UpdateNewMessageBody = (body: string) => ({type: 'UPDATE-NEW-MESSAGE-BODY', body} as const);
