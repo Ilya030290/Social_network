@@ -10,6 +10,10 @@ import {appReducer, AppReducerActionsType} from "./app-reducer";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import createSagaMiddleware from 'redux-saga';
 import {profileWatcherSaga} from "./profile-sagas";
+import {usersWatcherSaga} from "./users-sagas";
+import {all} from 'redux-saga/effects';
+import {appWatcherSaga} from "./app-saga";
+import {authWatcherSaga} from "./auth-sagas";
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -30,7 +34,12 @@ export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, s
 sagaMiddleware.run(rootWatcher);
 
 function* rootWatcher() {
-    yield profileWatcherSaga();
+    yield all([
+        profileWatcherSaga(),
+        usersWatcherSaga(),
+        authWatcherSaga(),
+        appWatcherSaga()
+    ]);
 }
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>;

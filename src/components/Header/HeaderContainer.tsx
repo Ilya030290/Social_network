@@ -1,8 +1,9 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {AuthReducerStateType, getAuthUserData, makeLogOut, setAuthUserData} from "../../redux/auth-reducer";
+import {AuthReducerStateType, setAuthUserData} from "../../redux/auth-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
+import {getAuthUserData, makeLogOut} from "../../redux/auth-sagas";
 
 
 type HeaderContainerComponentPropsType = AuthReducerStateType & {

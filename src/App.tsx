@@ -12,9 +12,9 @@ import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {LoginContainer} from "./components/Login/LoginContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./redux/app-reducer";
 import {AppRootStateType} from "./redux/redux-store";
 import {Preloader} from "./common/Preloader/Preloader";
+import {initializeApp} from "./redux/app-saga";
 
 
 type MapStateToPropsType = {

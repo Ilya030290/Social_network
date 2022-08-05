@@ -3,7 +3,8 @@ import {LoginPage} from "./Login";
 import {AppRootStateType} from "../../redux/redux-store";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {AuthReducerStateType, makeLogIn, makeLogOut} from "../../redux/auth-reducer";
+import {AuthReducerStateType} from "../../redux/auth-reducer";
+import {makeLogIn, makeLogOut} from "../../redux/auth-sagas";
 
 
 type LoginContainerComponentPropsType = AuthReducerStateType & {
