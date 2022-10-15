@@ -3,7 +3,7 @@ import {PostType} from "../components/Profile/MyPosts/Post/Post";
 
 let initialState = {
     posts: [
-        {id: 1, message: 'My first post', likeCount: 13},
+        {id: 1, message: 'My first post...', likeCount: 13},
         {id: 2, message: 'I want to be a frontend developer', likeCount: 15}
     ] as Array<PostType>,
     profile: {
